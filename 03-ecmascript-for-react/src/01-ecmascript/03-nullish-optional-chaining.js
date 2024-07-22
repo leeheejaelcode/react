@@ -63,8 +63,8 @@ function optionalChaining() {
   // 🔶 optional chaining 코드를 사용해 조건 처리하세요.
   // 참고: https://mzl.la/3xx6Arc
 
-  console.log(topic.getTitle());
-  console.log(topic.getName());
+  console.log(topic?.getTitle?.());
+  console.log(topic?.getName?.());
 }
 
 function run() {
