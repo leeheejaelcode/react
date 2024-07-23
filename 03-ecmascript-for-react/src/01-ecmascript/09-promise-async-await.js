@@ -67,16 +67,26 @@ function practice2() {
   // 🔶 delayPromise 함수를 사용해 1초마다 로그를 남기도록 작성합니다.
 }
 
-practice2();
+// practice2();
 
 // Async Await
 // 참고: https://mzl.la/49EvJxn
 
-function practice3() {
+async function practice3() {
   // 🔶 비동기 함수를 사용해 delayPromise 함수가 1초마다 로그를 남기도록 작성합니다.
+  await delayPromise();
+  console.log("1s");
+  await delayPromise();
+  console.log("2s");
+  await delayPromise();
+  console.log("3s");
+  await delayPromise();
+  console.log("4s");
+  await delayPromise();
+  console.log("end");
 }
 
-// practice3();
+practice3();
 
 // --------------------------------------------------------------------------
 // Promise.all, Promise.race
