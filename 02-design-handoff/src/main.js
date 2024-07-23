@@ -30,6 +30,29 @@ listItems.forEach((item) => {
     // 불투명하게 초기화
     e.currentTarget.classList.remove(DRAGGING_CLASSNAME);
   });
+  const handleButton = item.querySelector("[data-role=handle]");
+  if (handleButton) {
+    handleButton.addEventListener("keyup", (e) => {
+      switch (e.key) {
+        case "ArrowUp":
+          // case "ArrowLeft":
+          const prevItem = item.previousElementSibling;
+          if (prevItem) {
+            prevItem.before(item);
+            e.currentTarget.focus();
+          }
+          break;
+        case "ArrowDown":
+          // case "ArrowRight":
+          const nextItem = item.nextElementSibling;
+          if (nextItem) {
+            nextItem.after(item);
+            e.currentTarget.focus();
+          }
+          break;
+      }
+    });
+  }
 });
 // TODO : list 드래그 이벤트 핸들링
 list.addEventListener("dragover", (e) => {
