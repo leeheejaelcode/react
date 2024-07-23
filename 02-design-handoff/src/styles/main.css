@@ -1,27 +1,4 @@
 @import './_theme.css';
 @import './_base.css';
 @import './_demo.css';
-
-
-section {
-
-  h1 {
-    text-align: center;
-  }
-
-  margin: auto;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  li {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 12px;
-    color: #fff;
-    background-color: #141415;
-  }
-}
+@import './_list.css';
