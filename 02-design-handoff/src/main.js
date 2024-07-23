@@ -1,6 +1,6 @@
-// STEP 1. Vanilla Script (ES + DOM API)
-// STEP 2. Class Programming
-// STEP 3. Web Components API
+// [x] STEP 1. Vanilla Script (ES + DOM API)
+// [] STEP 2. Class Programming
+// [] STEP 3. Web Components API
 
 // TODO : .list 요소 찾기
 
