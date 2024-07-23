@@ -26,6 +26,10 @@
     gap: var(--contents-gap);
     padding: var(--padding);
 
+    &.dragging {
+      opacity: 0.1;
+    }
+
     img {
       block-size: var(--image-size);
       inline-size: var(--image-size);
