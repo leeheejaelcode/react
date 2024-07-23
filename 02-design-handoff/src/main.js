@@ -20,7 +20,7 @@ const listItems = Array.from(list.querySelectorAll("li"));
 // TODO : .listItems 집한 순환 드래그 가능하게 처리
 listItems.forEach((item) => {
   item.setAttribute("draggable", true);
-
+  // item.style.cursor = "move";
   // TODO : 각 리스트 아이템을 드래그 시작, 끝 이벤트 연결
   item.addEventListener("dragstart", (e) => {
     e.currentTarget.classList.add(DRAGGING_CLASSNAME);
@@ -31,9 +31,7 @@ listItems.forEach((item) => {
     e.currentTarget.classList.remove(DRAGGING_CLASSNAME);
   });
 });
-
 // TODO : list 드래그 이벤트 핸들링
-
 list.addEventListener("dragover", (e) => {
   // 브라우저 기본 작동 중지
   e.preventDefault();
@@ -49,11 +47,12 @@ list.addEventListener("dragover", (e) => {
   // 드래깅 중인 요소가 리스트 안에서 움직일 때 화면에서의 높이 값 (이벤트 감지)
 
   const replaceItem = restItems.find((item, index) => {
-    // console.log(index, item.offsetTop);
-    // console.log(index, item.offsetHeight);
-    // console.log(index, item.offsetHeight * 0.5);
     return e.clientY <= item.offsetTop + item.offsetHeight * 0.5;
   });
 
-  list.insertBefore(draggedItem, replaceItem);
+  if (replaceItem) {
+    list.insertBefore(draggedItem, replaceItem);
+  } else {
+    list.appendChild(draggedItem);
+  }
 });

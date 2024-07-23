@@ -6,6 +6,7 @@
   --image-size: 64px;
   --min-width: 220px;
   --max-width: 640px;
+  --button-size: 20px;
 
   margin: 0;
   list-style-type: none;
@@ -21,6 +22,7 @@
   inline-size: clamp(var(--min-width), var(--max-width));
 
   li {
+    cursor: move;
     display: flex;
     align-items: center;
     gap: var(--contents-gap);
@@ -30,7 +32,7 @@
       opacity: 0.1;
     }
 
-    img {
+    [data-role="image"] {
       block-size: var(--image-size);
       inline-size: var(--image-size);
       border-radius: var(--radius-md);
@@ -42,5 +44,15 @@
       flex: 1 1 auto;
     }
 
+    [data-role="handle"] {
+      padding: 0;
+      border: 0;
+      background-color: transparent;
+      inline-size: var(--button-size);
+      block-size: var(--button-size);
+
+      display: grid;
+      place-content: center;
+    }
   }
 }
