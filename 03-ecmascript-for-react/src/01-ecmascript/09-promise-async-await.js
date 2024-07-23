@@ -86,12 +86,12 @@ async function practice3() {
   console.log("end");
 }
 
-practice3();
+// practice3();
 
 // --------------------------------------------------------------------------
 // Promise.all, Promise.race
 
-const MAX_TIMEOUT = 1000;
+const MAX_TIMEOUT = 3000;
 
 const promise1 = () =>
   new Promise((resolve) => {
@@ -116,7 +116,21 @@ const promise3 = () => Promise.reject("❌ 오류 발생!");
 // Promise.all
 // 참고: https://mzl.la/49EvJxn
 // 🔶 Promise.all 메서드를 사용해 모든 Promise가 실행된 이후 콜백되도록 실습을 진행합니다.
+Promise.all([promise1(), promise2()])
+  .then((res) => {
+    console.log(res); // [res1, res2]
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Promise.race
 // 참고: https://mzl.la/49EvJxn
 // 🔶 Promise.race 메서드를 사용해 응답이 가장 빠른 Promise 값만 출력되도록 실습을 진행합니다.
+Promise.race([promise1(), promise2()])
+  .then((winner) => {
+    console.log(winner); // winner
+  })
+  .catch((err) => {
+    console.log(err);
+  });
