@@ -1,15 +1,18 @@
-// 실습
-import { createElement } from "./lib/virtual/index.js";
-import { createRoot } from "./lib/virtual-dom/index.js";
+// 실습 (Practice)
+import { createElement } from "./lib/virtual/index.js"; // like React
+import { createRoot } from "./lib/virtual-dom/index.js"; // like React DOM
 
-// data
+// Data (Declarative Programming)
 const listData = {
   items: [
     { id: "1", title: "Climatology" },
     { id: "2", title: "History of Architecture" },
+    { id: "3", title: "Graphics" },
+    { id: "4", title: "Building design" },
   ],
 };
 
+// Data + JavaScript Markup = Virtual DOM (VirtualElement Tree)
 const listItems = listData.items.map(({ id, title }) => {
   // 가상 요소 반환
   const itemElement = createElement(
@@ -35,36 +38,20 @@ const listItems = listData.items.map(({ id, title }) => {
   return itemElement;
 });
 
-console.log(listData);
+console.log(...listItems);
 
-// <ul class="architectures" lang="en"><ul>
+// TODO: <ul class="architectures" lang="en"></ul> 가상 요소 생성
+// API : createElement(type, props, ...children)
 const list = createElement(
   // type
   "ul",
   // props
   { className: "architectures", lang: "en" },
-  // children
-  // <li class="item"></li>
-  createElement(
-    "li",
-    { className: "item" },
-    // <img src="/architectures/architecture-1.jpg" alt=""></img>
-    // <span class="content">Climatology</span>
-
-    createElement("img", { src: "/architectures/architecture-1.jpg", alt: "" }),
-    createElement("span", { className: "content" }, "Climatology"),
-    createElement(
-      "button",
-      { type: "button", title: "아이템 이동(위/아래 화살표 키 활용)" },
-      createElement("img", {
-        src: "/icons/handle.svg",
-        alt: "아이템 이동(위/아래 화살표 키 활용)",
-      })
-    )
-  )
+  // ...children (child1, child2, ..., childN)
+  // <li class="item"></li> 가상 요소 삽입(추가)
+  ...listItems
 );
-
 // 가상 DOM (실제 DOM 흉내: 단순화)
-
-const root = createRoot(document.getElementById("actual-dom"));
+// console.log(list);
+const root = createRoot(document.getElementById("virtual-dom"));
 root.render(list);
