@@ -1,3 +1,5 @@
+// cjs
+
 const liveServer = require("live-server");
 
 const params = {
