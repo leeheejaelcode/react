@@ -14,6 +14,7 @@ const children = listData.items.map(({ id, title }) => {
     "li",
     {
       className: "item",
+      key: id,
     },
     React.createElement("img", {
       src: `/architectures/architecture-${id}.jpg`,
@@ -58,7 +59,26 @@ const parent = React.createElement(
 const container = document.getElementById("root");
 console.log(container);
 
-const root = ReactDOM.createRoot(container);
-root.render(parent);
+const reactDomRoot = ReactDOM.createRoot(container);
+// root.render(parent);
 
-// 리액트 앱 렌더링
+// 렌더링을 처리하는 함수
+
+function render() {
+  reactDomRoot.render(parent);
+}
+
+function unmount() {
+  reactDomRoot.unmount();
+}
+
+// 타이머 웹 API
+// setTimeout
+
+// 특정 시간이 지나면 앱을 렌더링
+setTimeout(render, 2000);
+
+// 특정 시간이 지나면 앱을 렌더링 해제
+setTimeout(() => {
+  unmount();
+}, 4000);
