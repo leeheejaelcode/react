@@ -1,20 +1,70 @@
-// Virtual DOM
-// 가상 문서 객체 모델
-// 실제 DOM을 추상화(단순화)
-
+// 실습
 import { createElement } from "./lib/virtual/index.js";
+import { createRoot } from "./lib/virtual-dom/index.js";
 
-// 실제 DOM 구성 (엘리먼트 트리)
-// 웹 API를 사용해 문서 객체(Document Object) 생성
+// data
+const listData = {
+  items: [
+    { id: "1", title: "Climatology" },
+    { id: "2", title: "History of Architecture" },
+  ],
+};
 
-// 부모(상위) 요소
-const figureElement = document.createElement("figure");
+const listItems = listData.items.map(({ id, title }) => {
+  // 가상 요소 반환
+  const itemElement = createElement(
+    "li",
+    { className: "item" },
+    createElement("img", {
+      src: `/architectures/architecture-${id}.jpg`,
+      alt: "",
+    }),
+    createElement("span", { className: "content" }, title),
+    createElement(
+      "button",
+      {
+        type: "button",
+        title: "아이템 이동 (위/아래 화살표 키 활용)",
+      },
+      createElement("img", {
+        src: "/icons/handle.svg",
+        alt: "아이템 이동 (위/아래 화살표 키 활용)",
+      })
+    )
+  );
+  return itemElement;
+});
 
-// 자식(하위) 요소
-const figcaptionElement = document.createElement("figcaption");
-figureElement.append(figcaptionElement);
+console.log(listData);
 
-console.dir(figureElement);
-// 가상(추상화된, 단순화된) 요소 (엘리먼트) 생성
-const figureVElement = createElement("figure");
-console.dir(figureVElement);
+// <ul class="architectures" lang="en"><ul>
+const list = createElement(
+  // type
+  "ul",
+  // props
+  { className: "architectures", lang: "en" },
+  // children
+  // <li class="item"></li>
+  createElement(
+    "li",
+    { className: "item" },
+    // <img src="/architectures/architecture-1.jpg" alt=""></img>
+    // <span class="content">Climatology</span>
+
+    createElement("img", { src: "/architectures/architecture-1.jpg", alt: "" }),
+    createElement("span", { className: "content" }, "Climatology"),
+    createElement(
+      "button",
+      { type: "button", title: "아이템 이동(위/아래 화살표 키 활용)" },
+      createElement("img", {
+        src: "/icons/handle.svg",
+        alt: "아이템 이동(위/아래 화살표 키 활용)",
+      })
+    )
+  )
+);
+
+// 가상 DOM (실제 DOM 흉내: 단순화)
+
+const root = createRoot(document.getElementById("actual-dom"));
+root.render(list);
