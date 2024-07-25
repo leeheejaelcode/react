@@ -1,54 +1,51 @@
-import { createElement as h } from "https://esm.sh/react";
-import { createRoot } from "https://esm.sh/react-dom";
-// HTML = Hyper Text Markup Language
-
-// JavaScript 마크업
-// h 이름인 이유 : Hyper Text Markup Language
-// h()
-
 // 개발자가 선언된 데이터 관리
 const listData = {
-  items: [],
+  items: [
+    // { id: "1", title: "Climatology" },
+    // { id: "2", title: "History of Architecture" },
+    // { id: "3", title: "Graphics" },
+    // { id: "4", title: "Building design" },
+  ],
 };
 
 // React Element (== 가상 DOM 요소 노드) 요소 생성
-// isValidElement API
-// console.log(isValidElement(list)); // true
+// React.isValidElement API
+// console.log(React.isValidElement(list)); // true
 
 // ReactDOM.createRoot를 활용하여 리액트 앱 렌더링
 const container = document.getElementById("root");
 
-const reactDomRoot = createRoot(container);
+const reactDomRoot = ReactDOM.createRoot(container);
 // root.render(parent);
 
 // 렌더링을 처리하는 함수
 
 function render() {
   const children = listData.items.map(({ id, title }) => {
-    const child = h(
+    const child = React.createElement(
       "li",
       {
         className: "item",
         key: id,
       },
-      h("img", {
+      React.createElement("img", {
         src: `/architectures/architecture-${id}.jpg`,
         alt: "",
       }),
-      h(
+      React.createElement(
         "span",
         {
           className: "content",
         },
         `${title}`
       ),
-      h(
+      React.createElement(
         "button",
         {
           type: "button",
           title: "아이템 이동 (위/아래 화살표 키 활용)",
         },
-        h("img", {
+        React.createElement("img", {
           src: "/icons/handle.svg",
           alt: "아이템 이동 (위/아래 화살표 키 활용)",
         })
@@ -57,7 +54,7 @@ function render() {
     return child;
   });
 
-  const parent = h(
+  const parent = React.createElement(
     "ul",
     {
       className: "architectures",
