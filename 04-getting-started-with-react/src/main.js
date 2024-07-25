@@ -1,5 +1,3 @@
-// const children = [];
-
 const listData = {
   items: [
     { id: "1", title: "Climatology" },
@@ -87,3 +85,21 @@ render();
 
 // 반응성(Reactivity)
 // 개발자 -> 데이터 수정 -> 반응성(변경 감지) -> 리액트 -> 화면 업데이트 구현
+const reactivity = (globalThis.reactivity = new Proxy(listData, {
+  // get 읽기 (원본 수정 대신, 프록시를 사용해 가로채서 읽기)
+  get(target, prop) {
+    // 객체의 속성 반환
+    return target[prop];
+  },
+  set(target, prop, newValue) {
+    // 이전 값의 접근
+    const oldValue = target[prop];
+
+    // 새로운 값으로 업데이트 로직 작성
+    target[prop] = newValue;
+
+    console.log("[SET] update", JSON.stringify(newValue));
+    return true;
+  },
+  // set 쓰기 (원본 수정 대신, 프록시를 사용해 가로채서 쓰기)
+}));
