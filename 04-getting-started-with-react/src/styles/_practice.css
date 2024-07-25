@@ -30,6 +30,15 @@ body {
     border-radius: var(--rounded-lg, 8px);
     background: var(--black, #000);
 
+    >img {
+      --size: 64px;
+      inline-size: var(--size);
+      block-size: var(--size);
+      border-radius: var(--radius-md, 6px);
+      border: 3px solid var(--white, #fff);
+
+    }
+
     &.dragging :where(img, .content, button) {
       opacity: 0.4;
     }
