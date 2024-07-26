@@ -2,9 +2,9 @@ import React from "https://esm.sh/react";
 import { createRoot } from "https://esm.sh/react-dom";
 
 // 컴포넌트 불러오기
-import NumberList from "./components/NumberList.js";
-import ArchitectureList from "./components/architectures/ArchitectureList.js";
-import ArchitectureItem from "./components/architectures/ArchitectureItem.js";
+import NumberList from "./components/NumberList.class.js";
+import ArchitectureList from "./components/architectures/ArchitectureList.class.js";
+import ArchitectureItem from "./components/architectures/ArchitectureItem.class.js";
 
 // 데이터 가져오기
 import listData from "./data/list.js";

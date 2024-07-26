@@ -9,7 +9,6 @@ class ArchitectureItem extends Component {
     // 컴포넌트 속성(props) 설계(design)
     // this.props 구조 { id, title }
     const { id, title } = this.props;
-
     return h(
       "li",
       {
