@@ -1,5 +1,6 @@
 import React, { createElement as h } from "https://esm.sh/react";
 import { createRoot } from "https://esm.sh/react-dom";
+import { NumberList } from "./components/NumberList.js";
 
 const listData = {
   items: [
@@ -11,26 +12,23 @@ const listData = {
 };
 
 const container = document.getElementById("react-app");
+
 const reactDomRoot = createRoot(container);
 
-class ArchitectureList extends React.Component {
-  render() {
-    return h(
-      "ul",
-      { className: "architectures", lang: "en" },
-      h("li", { className: "item" }, 101),
-      h("li", { className: "item" }, 201),
-      h("li", { className: "item" }, 301)
-    );
-  }
-}
+// 컴포넌트란? 재사용 메커니즘(클래스 또는 함수)을 사용해 리액트 엘리먼트를 반환하는 것을 말합니다.
 
-const list1 = h(ArchitectureList);
-const list2 = h(ArchitectureList);
-const list3 = h(ArchitectureList);
+// 리액트 월드에서 컴포넌트를 사용해 리액트 엘리먼트를 생성하려면?
+// React.createElement(컴포넌트_참조)
+const list1 = h(NumberList, { id: "list-1", count: 3 });
+const list2 = h(NumberList, { id: "list-2", count: 5 });
+const list3 = h(NumberList, { id: "list-3", count: 11 });
+// console.log(list1, list2, list3);
+
+// 2. 함수 컴포넌트 (재사용)
 
 function render() {
   const children = listData.items.map(({ id, title }) => {
+    // 리액트 엘리먼트 (객체)
     const reactElement = h(
       "li",
       {
@@ -64,9 +62,14 @@ function render() {
     return reactElement;
   });
 
-  const list = h("ul", { className: "architectures", lang: "en" }, children);
+  const list = h(
+    "ul", // 컴포넌트 타입
+    { className: "architectures", lang: "en" }, // 컴포넌트 속성(props)
+    ...children // 컴포넌트 자식들(칠드런) -> 리액트 엘리먼트 | 문자 | 숫자 | null 또는 데이터 배열
+  );
 
-  const app = h(
+  // ListContainer 리액트 엘리먼트
+  const listContainer = h(
     "div",
     { className: "list-container" },
     list,
@@ -75,7 +78,7 @@ function render() {
     list3
   );
 
-  reactDomRoot.render(app);
+  reactDomRoot.render(listContainer);
 }
 
 function unmount() {
