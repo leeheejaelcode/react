@@ -9,7 +9,7 @@ export default class NumberList extends React.Component {
   constructor(props /*컴포넌트 속성 */) {
     super(props);
 
-    // 암묵적으로 클래스로부터 생성된 인스ㅓㄴ스
+    // 암묵적으로 클래스로부터 생성된 인스턴스
     // return this;
   }
 
