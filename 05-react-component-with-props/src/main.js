@@ -1,6 +1,6 @@
 import React, { createElement as h } from "https://esm.sh/react";
 import { createRoot } from "https://esm.sh/react-dom";
-import { NumberList } from "./components/NumberList.js";
+import NumberList from "./components/NumberList.js";
 
 const listData = {
   items: [
