@@ -9,6 +9,9 @@ function ScrollUpAndDown() {
         className="scrollDown"
         aria-label="스크롤 다운"
         title="스크롤 다운"
+        onClick={() => {
+          console.log('클락');
+        }}
       >
         <svg
           fill="currentColor"
