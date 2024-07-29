@@ -1,12 +1,15 @@
-import React, { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-// Vite 클라이언트 환경(브라우저)에서 사용 가능한 환경 변수
-// console.log(import.meta.env);
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import AvatarListPage from '@/pages/AvatarList';
 
-const domNode = document.getElementById("react-app");
-createRoot(domNode).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const container = document.getElementById('react-app');
+
+if (container) {
+  createRoot(container).render(
+    <StrictMode>
+      <AvatarListPage />
+    </StrictMode>
+  );
+} else {
+  console.warn('문서에 "#app" 요소가 존재하지 않습니다.');
+}
