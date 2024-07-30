@@ -19,26 +19,50 @@ function ConditionalRendering({ imageType }) {
   let imagePath = '';
   let printText = '';
 
+  // switch 문
+  switch (imageType.toLowerCase()) {
+    case 'react':
+      imagePath = reactImagePath;
+      printText = 'React';
+      break;
+    case 'vite':
+      imagePath = viteImagePath;
+      printText = 'Vite';
+      break;
+    case 'next.js':
+      imagePath = nextJsImagePath;
+      printText = 'Next.js';
+      break;
+    case 'kakao talk':
+      imagePath = kakaoTalkImagePath;
+      printText = 'Kakao Talk';
+      break;
+
+    default:
+      imagePath = reactImagePath;
+      printText = '허용된 이미지 타입이 존재하지 않습니다';
+  }
+
   // 조건 "문"
-  if (imageType.toLowerCase().includes('react')) {
-    imagePath = reactImagePath;
-    printText = 'React';
-  }
+  // if (imageType.toLowerCase().includes('react')) {
+  //   imagePath = reactImagePath;
+  //   printText = 'React';
+  // }
 
-  if (imageType.toLowerCase().includes('vite')) {
-    imagePath = viteImagePath;
-    printText = 'Vite';
-  }
+  // if (imageType.toLowerCase().includes('vite')) {
+  //   imagePath = viteImagePath;
+  //   printText = 'Vite';
+  // }
 
-  if (imageType.toLowerCase().includes('next.js')) {
-    imagePath = nextJsImagePath;
-    printText = 'Next.js';
-  }
+  // if (imageType.toLowerCase().includes('next.js')) {
+  //   imagePath = nextJsImagePath;
+  //   printText = 'Next.js';
+  // }
 
-  if (imageType.toLowerCase().includes('kakao talk')) {
-    imagePath = kakaoTalkImagePath;
-    printText = 'Kakao Talk';
-  }
+  // if (imageType.toLowerCase().includes('kakao talk')) {
+  //   imagePath = kakaoTalkImagePath;
+  //   printText = 'Kakao Talk';
+  // }
 
   // 값을 반환하는 함수 실행
   // const isShowSpinner = isTrueOrFalse(); // 참 또는 거짓
