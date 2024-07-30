@@ -1,4 +1,4 @@
-function ConditionalDispaly() {
+function ConditionalDisplay() {
   return (
     <>
       <dt>조건부 표시(conditional display)</dt>
@@ -17,4 +17,4 @@ function ConditionalDispaly() {
   );
 }
 
-export default ConditionalDispaly;
+export default ConditionalDisplay;
