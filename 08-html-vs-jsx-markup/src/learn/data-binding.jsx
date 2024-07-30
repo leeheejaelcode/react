@@ -45,8 +45,6 @@ DataBinding.propTypes = {
     // 컴포넌트 속성 값의 타입은? (문자 값을 원해~)
     const propType = typeOf(propValue); // 'array'
 
-    // console.log(propType);
-
     // 허용할 데이터 타입 이름은?
     const allowedDataType = 'array';
 
