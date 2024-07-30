@@ -10,7 +10,7 @@ function JSX_Markup() {
   // 이것이 컴포넌트의 속성(Properties, props)이다.
 
   // learnData 구조 분해 할당
-  const { statusMessages, imageType } = learnData;
+  const { statusMessages, imageType, isShowReactImage } = learnData;
 
   // {'JSX'}
   // {/*` `*/}
@@ -21,7 +21,7 @@ function JSX_Markup() {
       {/* {React.createElement(DataBinding, { statusMessages: statusMessages })} */}
       <DataBinding statusMessages={statusMessages} />
       <ConditionalRendering imageType={imageType} />
-      <ConditionalDisplay />
+      <ConditionalDisplay isShowReactImage={isShowReactImage} />
       <RenderLists />
     </dl>
   );
