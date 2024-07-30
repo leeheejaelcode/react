@@ -1,4 +1,5 @@
-import { randomNumber, typeOf } from '../utils';
+import { randomNumber } from '../utils';
+import PropTypes from '../utils/prop-types';
 
 function DataBinding({ statusMessages }) {
   // [미션] 랜덤 로직을 작성해서 임의의 상태 메시지가 표시되도록 설정합니다.
@@ -38,27 +39,5 @@ export default DataBinding;
 // Component.propTypes
 
 DataBinding.propTypes = {
-  statusMessages(props, propName, componentName) {
-    // 컴포넌트 속성의 값은?
-    const propValue = props[propName];
-
-    // 컴포넌트 속성 값의 타입은? (문자 값을 원해~)
-    const propType = typeOf(propValue); // 'array'
-
-    // 허용할 데이터 타입 이름은?
-    const allowedDataType = 'array';
-
-    // 검사 수행
-    if (propType !== allowedDataType) {
-      // 오류가 있네??
-      // 오류 메시지를 출력하자!
-      // 메시지는 `${componentName} 컴포넌트 ${propName} 속성 타입은 ${allowedDataType} 타입이 요구되나, 실제 전달된 타입은 ${propType}입니다.`
-
-      throw new Error(
-        `${componentName} 컴포넌트 ${propName} 속성 타입은 ${allowedDataType} 타입이 요구되나, 실제 전달된 타입은 ${propType}입니다.`
-      );
-    }
-
-    // 아무런 오류가 없으니 패스~
-  },
+  statusMessages: PropTypes.array,
 };
