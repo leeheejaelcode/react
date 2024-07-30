@@ -192,3 +192,12 @@ abbr[title] {
     }
   }
 }
+
+/* utilities */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/* 명시적으로 요소를 display: none처리 */

@@ -21,7 +21,7 @@ function JSX_Markup() {
       {/* {React.createElement(DataBinding, { statusMessages: statusMessages })} */}
       <DataBinding statusMessages={statusMessages} />
       <ConditionalRendering imageType={imageType} />
-      <ConditionalDisplay isShowReactImage={isShowReactImage} />
+      <ConditionalDisplay isShowImage={isShowReactImage} />
       <RenderLists />
     </dl>
   );

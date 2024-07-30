@@ -1,10 +1,10 @@
-import { typeOf, randomNumber } from '../utils';
+import { typeOf, isTrueOrFalse } from '../utils';
 
 // 이미지 경로 불러오기
+import kakaoTalkImagePath from '../assets/kakao-talk.svg?url';
+import nextJsImagePath from '../assets/next-js.svg?url';
 import reactImagePath from '../assets/react.svg?url';
 import viteImagePath from '../assets/vite.svg?url';
-import nextJsImagePath from '../assets/next-js.svg?url';
-import kakaoTalkImagePath from '../assets/kakao-talk.svg?url';
 // src안에 있는 동적 이미지한테만 ?url 사용 가능
 // 화면이 바뀌어도 ui가 바뀌지 않는 현상을 해결하기 위해 ?url을 붙힙니다.
 
@@ -19,6 +19,7 @@ function ConditionalRendering({ imageType }) {
   let imagePath = '';
   let printText = '';
 
+  // 조건 "문"
   if (imageType.toLowerCase().includes('react')) {
     imagePath = reactImagePath;
     printText = 'React';
@@ -38,19 +39,32 @@ function ConditionalRendering({ imageType }) {
     imagePath = kakaoTalkImagePath;
     printText = 'Kakao Talk';
   }
-  const Randomstatus = randomNumber(0, 1);
-  const spinnerOrVite = Randomstatus ? (
+
+  // 값을 반환하는 함수 실행
+  // const isShowSpinner = isTrueOrFalse(); // 참 또는 거짓
+
+  // 3항 연산자 (표현) "식"
+  const spinnerOrVite = isTrueOrFalse() ? (
     <img className="spinner" src="/icons/spinner.svg" alt="로딩 중..." />
   ) : (
     <img src="/vite.svg" alt="Vite" style={{ height: 42 }} />
   );
 
+  // 논리 곱/합 연산자
+  // 그리고(AND, &&), 또는(OR, ||)
+  // const spinnerMessage = isShowSpinner ? '스피너 표시' : null;
+  // const spinnerMessage = isShowSpinner && '스피너 표시';
+  // const spinnerMessage = !isShowSpinner || '스피너 표시';
+
   // JSX 반환 (마크업 생성)
-  // JSX 내부에서는 오직 식만 사용 가능하다.
-  // JSX는 표현식이다.
+  // Q. JSX는 문(statement)이다? 아니, 표현식(expression)이다!
+  //    JSX 내부에서는 오직 식만 사용 가능하다!!!
   return (
     <>
-      <dt>조건부 렌더링(conditional rendering)</dt>
+      {/* <dt>조건부 렌더링(conditional rendering) ({spinnerMessage})</dt> */}
+      <dt>
+        조건부 렌더링(conditional rendering) {isTrueOrFalse() && '스피너 표시'}
+      </dt>
       <dd>
         <p>이미지 타입(image type)에 따라 렌더링 여부를 결정합니다.</p>
         <div className="conditionalRendering">
@@ -62,7 +76,18 @@ function ConditionalRendering({ imageType }) {
       </dd>
       <dd style={{ marginTop: 12 }}>
         <p>spinner 또는 vite 이미지가 랜덤으로 화면에 렌더링 되도록 합니다.</p>
-        <div className="conditionalRendering">{spinnerOrVite}</div>
+        <div className="conditionalRendering">
+          {spinnerOrVite}
+          {/* {randomNumber(0, 1) > 0.5 ? (
+            <img
+              className="spinner"
+              src="/icons/spinner.svg"
+              alt="로딩 중..."
+            />
+          ) : (
+            <img src="/vite.svg" alt="Vite" style={{ height: 42 }} />
+          )} */}
+        </div>
       </dd>
     </>
   );
