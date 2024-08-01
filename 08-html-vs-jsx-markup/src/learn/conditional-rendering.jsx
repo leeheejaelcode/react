@@ -1,8 +1,6 @@
 import { isTrueOrFalse } from '../utils';
 import PropTypes from '../utils/prop-types';
 
-console.log(PropTypes);
-
 // 이미지 경로 불러오기
 import kakaoTalkImagePath from '../assets/kakao-talk.svg?url';
 import nextJsImagePath from '../assets/next-js.svg?url';
