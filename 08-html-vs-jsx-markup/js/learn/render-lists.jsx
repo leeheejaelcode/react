@@ -11,8 +11,7 @@
 // import { Fragment } from 'react';
 // <Fragment> 컴포넌트 사용 가능
 import { Fragment } from 'react';
-import { array, exact, string } from 'prop-types';
-
+import { ItemsType, ReactLibraryType } from '../@types/types.d.js';
 // console.log(PropTypes);
 
 function RenderLists({
@@ -155,13 +154,7 @@ export default RenderLists;
 
 RenderLists.propTypes = {
   // items: oneOf(statusMessages)
-  items: array, // [권장] arrayOf(string) | arrayOf(number)
-
-  reactLibrary: exact({
-    name: string,
-    author: string,
-    writtenIn: string,
-    type: string,
-    license: string,
-  }), // [권장] shape()
+  items: ItemsType.isRequired,
+  // [권장] arrayOf(string) | arrayOf(number)
+  reactLibrary: ReactLibraryType.isRequired, // [권장] shape()
 };

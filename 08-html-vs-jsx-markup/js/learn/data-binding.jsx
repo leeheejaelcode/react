@@ -1,7 +1,5 @@
-import { statusMessages } from '../data/learn';
+import { StatusMessagesType } from '../@types/types.d';
 import { randomNumber } from '../utils';
-import { arrayOf, oneOf } from 'prop-types';
-
 function DataBinding({ statusMessages }) {
   // [미션] 랜덤 로직을 작성해서 임의의 상태 메시지가 표시되도록 설정합니다.
   // JavaScript 프로그래밍
@@ -49,5 +47,5 @@ DataBinding.propTypes = {
   // [TS] number[] -> [props-types] arrayOf(number)
   // [TS] boolean[] -> [props-types] arrayOf(boolean)
   // statusMessages: arrayOf(string).isRequired, // 문자열로 구성된 배열은 필수 입니다.
-  statusMessages: arrayOf(oneOf(statusMessages)).isRequired,
+  statusMessages: StatusMessagesType.isRequired,
 };
