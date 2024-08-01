@@ -1,5 +1,6 @@
+import { statusMessages } from '../data/learn';
 import { randomNumber } from '../utils';
-import PropTypes from '../utils/prop-types';
+import { arrayOf, oneOf } from 'prop-types';
 
 function DataBinding({ statusMessages }) {
   // [미션] 랜덤 로직을 작성해서 임의의 상태 메시지가 표시되도록 설정합니다.
@@ -39,5 +40,14 @@ export default DataBinding;
 // Component.propTypes
 
 DataBinding.propTypes = {
-  statusMessages: PropTypes.array,
+  // 필수 속성 설정 시, isRequired 추가
+  // statusMessages: array.isRequired,
+
+  // 특정 타입만 허용하는 배열 검사
+  // Typed Array
+  // [TS] string[] -> [props-types] arrayOf(string)
+  // [TS] number[] -> [props-types] arrayOf(number)
+  // [TS] boolean[] -> [props-types] arrayOf(boolean)
+  // statusMessages: arrayOf(string).isRequired, // 문자열로 구성된 배열은 필수 입니다.
+  statusMessages: arrayOf(oneOf(statusMessages)).isRequired,
 };

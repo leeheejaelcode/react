@@ -9,6 +9,8 @@ export const statusMessages = [
   '❌ 로딩 실패.',
 ];
 
+export const IMAGE_TYPES = ['react', 'vite', 'next.js', 'kakao talk'];
+
 export const statusMessagesWithID = [
   { id: 1, message: '⌛️ 대기' },
   { id: 2, message: '⏳ 로딩 중...' },
