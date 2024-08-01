@@ -1,2 +1,2 @@
-export * from './randomNumber.js';
-export * from './typeOf.js';
+export * from './randomNumber';
+export * from './typeOf';

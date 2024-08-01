@@ -27,6 +27,18 @@ button {
   }
 }
 
+details {
+  margin-block-end: 24px;
+}
+
+summary {
+  padding-block: 8px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
 abbr[title] {
   cursor: help;
   text-decoration: none;
@@ -52,7 +64,7 @@ abbr[title] {
 
   position: relative;
   width: clamp(var(--min-size), 90vw, var(--max-size));
-  height: clamp(var(--min-size), 70vh, var(--max-size));
+  height: clamp(var(--min-size), 50vw, var(--max-size));
   margin: 60px auto;
   border: 4px solid currentColor;
   border-radius: 8px;
@@ -194,9 +206,75 @@ abbr[title] {
   }
 }
 
-/* utilities */
+.NavContents {
+  display: flex;
+  gap: 8px;
+  margin-inline: -4px;
+  margin-block-end: 12px;
 
-.hidden,
-[hidden] {
-  display: none !important;
+  a {
+    padding: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    color: #043b4e;
+
+    &:hover:not(.active) {
+      color: #0a6f90;
+    }
+
+    &.active {
+      color: #0d89b3;
+    }
+  }
+}
+
+.box {
+  --cyan: #59fff1;
+  --magenta: #e40973;
+  --yellow: #ffe415;
+  --black: #000;
+  --color: var(--cyan);
+
+  margin: 12px;
+  padding: 32px;
+  background-color: var(--color);
+  transition: all 0.2s ease-in-out;
+  border-radius: 12px;
+
+  &:hover {
+    background-color: color-mix(in hsl increasing hue, var(--color) 100%, var(--black) 40%);
+  }
+}
+
+.countDown {
+  display: flex;
+  gap: 20px;
+
+  button {
+    cursor: pointer;
+    font-size: 12px;
+    background-color: transparent;
+    border: 1px solid currentColor;
+    padding-inline: 12px;
+    border-radius: 4px;
+
+    &:hover:not(.running) {
+      color: #1f47a7;
+    }
+
+    &.running {
+      color: #1681cd;
+    }
+  }
+
+  output {
+    font-size: 24px;
+    font-weight: 500;
+    color: #b2b2b6;
+
+    &.running {
+      color: #1681cd;
+    }
+  }
 }

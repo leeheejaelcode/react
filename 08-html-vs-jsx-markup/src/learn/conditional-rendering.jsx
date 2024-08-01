@@ -1,12 +1,13 @@
 import { isTrueOrFalse } from '../utils';
 import PropTypes from '../utils/prop-types';
+
+console.log(PropTypes);
+
 // 이미지 경로 불러오기
 import kakaoTalkImagePath from '../assets/kakao-talk.svg?url';
 import nextJsImagePath from '../assets/next-js.svg?url';
 import reactImagePath from '../assets/react.svg?url';
 import viteImagePath from '../assets/vite.svg?url';
-// src안에 있는 동적 이미지한테만 ?url 사용 가능
-// 화면이 바뀌어도 ui가 바뀌지 않는 현상을 해결하기 위해 ?url을 붙힙니다.
 
 // 이미지 타입 배열 관리
 const IMAGE_TYPES = ['react', 'vite', 'next.js', 'kakao talk'];
@@ -19,7 +20,8 @@ function ConditionalRendering({ imageType }) {
   let imagePath = '';
   let printText = '';
 
-  // switch 문
+  // 조건 "문"
+  // if 문 => switch 문으로 변경
   switch (imageType.toLowerCase()) {
     case 'react':
       imagePath = reactImagePath;
@@ -37,32 +39,9 @@ function ConditionalRendering({ imageType }) {
       imagePath = kakaoTalkImagePath;
       printText = 'Kakao Talk';
       break;
-
     default:
-      imagePath = reactImagePath;
-      printText = '허용된 이미지 타입이 존재하지 않습니다';
+      printText = '허용된 이미지 타입이 존재하지 않습니다.';
   }
-
-  // 조건 "문"
-  // if (imageType.toLowerCase().includes('react')) {
-  //   imagePath = reactImagePath;
-  //   printText = 'React';
-  // }
-
-  // if (imageType.toLowerCase().includes('vite')) {
-  //   imagePath = viteImagePath;
-  //   printText = 'Vite';
-  // }
-
-  // if (imageType.toLowerCase().includes('next.js')) {
-  //   imagePath = nextJsImagePath;
-  //   printText = 'Next.js';
-  // }
-
-  // if (imageType.toLowerCase().includes('kakao talk')) {
-  //   imagePath = kakaoTalkImagePath;
-  //   printText = 'Kakao Talk';
-  // }
 
   // 값을 반환하는 함수 실행
   // const isShowSpinner = isTrueOrFalse(); // 참 또는 거짓
@@ -87,7 +66,8 @@ function ConditionalRendering({ imageType }) {
     <>
       {/* <dt>조건부 렌더링(conditional rendering) ({spinnerMessage})</dt> */}
       <dt>
-        조건부 렌더링(conditional rendering) {isTrueOrFalse() && '스피너 표시'}
+        조건부 렌더링(conditional rendering) ({isTrueOrFalse() && '스피너 표시'}
+        )
       </dt>
       <dd>
         <p>이미지 타입(image type)에 따라 렌더링 여부를 결정합니다.</p>
