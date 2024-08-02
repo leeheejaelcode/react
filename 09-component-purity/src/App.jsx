@@ -6,9 +6,7 @@ import avatarsData from '@/data/avatars';
 // 개발 중일 때만 2번 실행해서 일반적인 문제 진단
 // 배포 되었을 때는 1번만 실행
 // Strict Mode는 <StrictMode> 컴포넌트 내부의 모든 컴포넌트 트리에 대해 추가적인 개발 전용 검사를 활성화합니다.
-let tryCount = 0;
 function App() {
-  console.log(++tryCount, { avatarsData });
   return (
     <div className="App">
       <AvatarListPage list={avatarsData} />
