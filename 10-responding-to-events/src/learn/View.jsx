@@ -5,15 +5,21 @@ import EventPropagation from './responding-to-events/event-propagation';
 import EventWithSideEffects from './responding-to-events/event-with-side-effects';
 
 function RespondingToEvents() {
-  const message = '김사부! 집중!';
-  const printMessage = () => console.log(message);
+  let message = '김사부! 집중!';
+  // const printMessage = () => console.log(message);
 
+  // message를 하위컴포넌트에서 변경 가능한 이유는 클로저이기때문에
+  // 함수를 참조하기 때문이다
+  const updateMessage = (addMessage) => {
+    message += addMessage;
+    console.log(message);
+  };
   return (
     <div className="ViewRespondingToEvent">
       <h1>이벤트에 응답</h1>
       <p>사용자와 상호작용하도록 이벤트를 구성합니다.</p>
       <hr />
-      <EventHandlerProp message={message} onPrintMessage={printMessage} />
+      <EventHandlerProp message={message} onPrintMessage={updateMessage} />
       <hr />
       <EventPropagation />
       <hr />

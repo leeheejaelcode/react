@@ -6,14 +6,17 @@ EventHandlerProp.propTypes = {
 
 function EventHandlerProp({ message, onPrintMessage }) {
   const handleEnter = () => {
-    console.log('ENTER', message);
-    onPrintMessage?.();
+    // console.log('ENTER', message);
+    // onPrintMessage?.('🩷🩷');
   };
-  const handleLeave = () => console.log('LEAVE');
+  // const handleLeave = () => console.log('LEAVE');
 
   return (
     <details>
-      <summary onPointerEnter={handleEnter} onPointerLeave={handleLeave}>
+      <summary
+        onPointerEnter={handleEnter}
+        // onPointerLeave={handleLeave}
+      >
         <b>이벤트 핸들러 추가하기</b>
       </summary>
       <p>
