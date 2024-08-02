@@ -5,8 +5,14 @@
 // - [ ] 컴포넌트 지역 내, 수정 (Local Mutation)
 // - [ ] 컴포넌트의 순수성 부수기 (부수 효과 코드 포함)
 // --------------------------------------------------------------------------
+import { UserType } from '@/@types/globals.d';
 
-function Avatar({ name, photo, status = 'offline', size = 64 }) {
+Avatar.propTypes = {
+  user: UserType.isRequired,
+};
+
+function Avatar({ user }) {
+  const { name, photo, status, size } = user;
   let iconPath = '';
   let statusMessage = '';
 
@@ -39,7 +45,7 @@ function Avatar({ name, photo, status = 'offline', size = 64 }) {
         <img src={iconPath} alt="" />
       </figcaption>
     </figure>
-  )
+  );
 }
 
 export default Avatar;
