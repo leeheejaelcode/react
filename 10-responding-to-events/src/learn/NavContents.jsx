@@ -17,7 +17,8 @@ function NavContents() {
     console.log(firstLink);
   };
 
-  const handleClickLastLink = () => {
+  const handleClickLastLink = (e) => {
+    e.preventDefault();
     // 사이드 이펙트(부수 효과) 처리 함수
     // 사이트 이펙트: 리액트 렌더링 프로세스와 연관이 없는 것을 처리
     const lastLink = document.querySelector('[href="#responding-to-events"]');
