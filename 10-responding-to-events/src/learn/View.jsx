@@ -5,12 +5,15 @@ import EventPropagation from './responding-to-events/event-propagation';
 import EventWithSideEffects from './responding-to-events/event-with-side-effects';
 
 function RespondingToEvents() {
+  const message = '김사부! 집중!';
+  const printMessage = () => console.log(message);
+
   return (
     <div className="ViewRespondingToEvent">
       <h1>이벤트에 응답</h1>
       <p>사용자와 상호작용하도록 이벤트를 구성합니다.</p>
       <hr />
-      <EventHandlerProp />
+      <EventHandlerProp message={message} onPrintMessage={printMessage} />
       <hr />
       <EventPropagation />
       <hr />
@@ -31,7 +34,7 @@ function HTMLvsJSX() {
 
 // --------------------------------------------------------------------------
 
-function View() {} 
+function View() {}
 
 View.HTMLvsJSX = HTMLvsJSX;
 View.RespondingToEvents = RespondingToEvents;
