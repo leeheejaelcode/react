@@ -2,6 +2,15 @@
 // 참고: https://developer.mozilla.org/ko/docs/Web/API/Element/scrollIntoView
 
 function ScrollUpAndDown() {
+  const goToBottom = () => {
+    const targetElement = document.querySelector('.buttonGroup');
+    targetElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
+  const goToTop = () => {
+    const targetElement = document.querySelector('.NavContents');
+    targetElement.scrollIntoView({ block: 'end', behavior: 'smooth' });
+  };
+
   return (
     <div role="group" className="buttonGroup">
       <button
@@ -9,6 +18,7 @@ function ScrollUpAndDown() {
         className="scrollDown"
         aria-label="스크롤 다운"
         title="스크롤 다운"
+        onClick={goToBottom}
       >
         <svg
           fill="currentColor"
@@ -32,6 +42,7 @@ function ScrollUpAndDown() {
         className="scrollUp"
         aria-label="스크롤 업"
         title="스크롤 업"
+        onClick={goToTop}
       >
         <svg
           fill="currentColor"

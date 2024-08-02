@@ -7,7 +7,7 @@ LayoutBox.propTypes = {
 };
 
 function LayoutBox({ children, onClick, ...restProps }) {
-  console.log(children);
+  // console.log(children);
   // {style={--color: 'var(--cyan)'} onClick={(e) => {console.log("cyan", e.target)}}
   // {style={--color: 'var(--magenta)'} onClick={(e) => {console.log("magenta", e.target)}}
   // {style={--color: 'var(--yellow)'} onClick={(e) => {console.log("yellow", e.target)}}
