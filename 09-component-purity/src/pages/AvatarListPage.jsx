@@ -39,11 +39,11 @@ function AvatarListPage(props) {
   // 부수 효과(side effects)
   // DOM 요소에 대한 접근/조작
   // 타이머 API 활용
-  let renderCount = 0;
-  setInterval(() => {
-    console.log(renderCount);
-    document.getElementById('react-app').dataset.render = ++renderCount;
-  }, 1000);
+  // let renderCount = 0;
+  // setInterval(() => {
+  //   console.log(renderCount);
+  //   document.getElementById('react-app').dataset.render = ++renderCount;
+  // }, 1000);
 
   return (
     <ul className="AvatarList">
