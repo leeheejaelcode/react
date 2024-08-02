@@ -1,13 +1,27 @@
 // --------------------------------------------------------------------------
 // ✅ 이벤트 핸들러와 사이드 이펙트
 // --------------------------------------------------------------------------
-// - [ ] 웹 API 활용
-// - [ ] 접근성 준수
+// - [x] 웹 API 활용
+// - [x] 접근성 준수
 // --------------------------------------------------------------------------
 
 function EventWithSideEffects() {
+  const handleCountDown = () => {
+    const countElement = document.querySelector('.countDown .count');
+
+    const clearIntervalId = setInterval(() => {
+      const currentCountValue = Number(countElement.value);
+      const nextCountValue = currentCountValue - 1;
+      if (nextCountValue < 0) {
+        clearInterval(clearIntervalId);
+        return;
+      }
+      countElement.value = nextCountValue.toString();
+    }, 10);
+  };
+
   return (
-    <details>
+    <details open>
       <summary>
         <b>이벤트 핸들러와 사이드 이펙트</b>
       </summary>
@@ -18,7 +32,9 @@ function EventWithSideEffects() {
         무언가를 변경하는데 최적의 위치입니다.
       </p>
       <div className="countDown">
-        <button type="button">카운트 다운</button>
+        <button type="button" onClick={handleCountDown}>
+          카운트 다운
+        </button>
         <output className="count">100</output>
       </div>
     </details>
