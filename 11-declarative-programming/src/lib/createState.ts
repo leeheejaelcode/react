@@ -3,7 +3,8 @@ interface State {
 }
 
 type StateAction = (key: string, value: any) => void;
-
+// 선언된 상태 관리 미니 툴
+// const [state(object), setState(function)] = createState(data, render)
 const createState = (
   data: State,
   callback: () => void
@@ -16,7 +17,7 @@ const createState = (
     },
     set(target, prop, newValue) {
       if (!allowUpdate) {
-        console.warn('🚫 스토어 데이터를 직접 수정할 수 없습니다.');
+        console.warn("🚫 스토어 데이터를 직접 수정할 수 없습니다.");
         return false;
       }
 
