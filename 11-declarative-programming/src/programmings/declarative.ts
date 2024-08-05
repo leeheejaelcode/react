@@ -13,15 +13,18 @@ const data = {
   checked: false,
 };
 // 상태 업데이트가 감지되면 실행될 콜백 함수
-const render = () => {};
+const render = () => {
+  // 선언된 상태 확인
+  console.log("[checked 상태 업데이트]: ", state.checked);
+};
 // 상태 선언
 const [state, setState] = createState(data, render); // [State, updateState]
 
 // 선언된 상태 확인
-console.log(state.checked);
-// 상태 업데이트 (다음 번 상태 업데이트 값 설정)
-const nextCheckedValue = !state.checked;
-setState("checked", nextCheckedValue);
+console.log("[checked 초기 상태]: ", state.checked);
 
-// 선언된 상태 확인
-console.log(state.checked);
+function update() {
+  // 상태 업데이트 (다음 번 상태 업데이트 값 설정)
+  const nextCheckedValue = !state.checked;
+  setState("checked", nextCheckedValue);
+}
