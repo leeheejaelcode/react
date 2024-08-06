@@ -15,13 +15,14 @@ import { Component } from 'react';
 import { number } from 'prop-types';
 
 class Counter extends Component {
+  // Counter의 propTypes설정
   static propTypes = {
     count: number,
     step: number,
     min: number,
     max: number,
   };
-
+  // 기본 값 설정
   static defaultProps = {
     count: 1,
     step: 1,
