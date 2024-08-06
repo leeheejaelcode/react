@@ -27,7 +27,7 @@ function Counter({ count: initialCount = 1, step = 1, min = 1, max = 10 }) {
   // const [count] = useState(initialCount);
   // only updator function
   // const [, setCount] = useState(initialCount);
-
+  // 참고: https://react.dev/reference/react/useState#usestate
   const [count, setCount] = useState(
     /*초기값 설정*/ () => {
       if (initialCount < min || initialCount > max) {
