@@ -51,7 +51,7 @@ function Counter({ count: initialCount = 1, step = 1, min = 1, max = 1000 }) {
 
   const handleDecrease = () => {
     // ----------------------------------------------------------------------
-    console.group('지역 변수');
+    console.groupCollapsed('지역 변수');
     console.log(`[-] number = ${number}`);
     number -= 1;
     // 함수 내부의 지역 변수는 즉시 값이 변경 됨!
@@ -60,7 +60,7 @@ function Counter({ count: initialCount = 1, step = 1, min = 1, max = 1000 }) {
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
-    console.group('컴포넌트 상태');
+    console.groupCollapsed('컴포넌트 상태');
     console.log(`[-] count = ${count}`);
     const nextCount = count - step;
     setCount(nextCount);
@@ -84,20 +84,36 @@ function Counter({ count: initialCount = 1, step = 1, min = 1, max = 1000 }) {
 
   const handleIncrease = () => {
     // ----------------------------------------------------------------------
-    console.group('지역 변수');
+    console.groupCollapsed('지역 변수');
     console.log(`[+] number = ${number}`);
     number += 1;
     // 함수 내부의 지역 변수는 즉시 값이 변경 됨!
     console.log(`[+] number = ${number}`);
     console.groupEnd('지역 변수');
     // ----------------------------------------------------------------------
-
+    // console.groupCollapsed('컴포넌트 상태');
+    // console.log(`[+] count = ${count}`);
+    // const nextCount = count + step;
+    // setCount(nextCount);
+    // // 컴포넌트의 상태는 즉시 값이 변경되지 않음!
+    // console.log(`[+] count = ${count}`);
+    // console.groupEnd('컴포넌트 상태');
     // ----------------------------------------------------------------------
-    console.group('컴포넌트 상태');
-    console.log(`[+] count = ${count}`);
-    const nextCount = count + step;
-    setCount(nextCount);
+    console.groupCollapsed('컴포넌트 상태');
+    console.log(`[+] count += ${step * 3}`);
+    /* ------------------------------- setState(nextState) API --------------------------------- */
+    // setCount(count + step); // "3" + 1 = 4
+    // setCount(count + step); // "3" + 1 = 4
+    // setCount(count + step); // "3" + 1 = 4
     // 컴포넌트의 상태는 즉시 값이 변경되지 않음!
+
+    /* ------------------ setState((prevState)=>nextState) API ------------------ */
+    // React State Queue [updateState1, updateState2, updateState3]
+    // const nextState = updateState3(updateState2(updateState1(count + step)));
+
+    // setCount((prevCount) => (prevCount + step)); // "3" + 1 = 4
+    // setCount((prevCount) => (prevCount + step)); // "4" + 1 = 5
+    // setCount((prevCount) => (prevCount + step)); // "5" + 1 = 6
     console.log(`[+] count = ${count}`);
     console.groupEnd('컴포넌트 상태');
     // ----------------------------------------------------------------------
