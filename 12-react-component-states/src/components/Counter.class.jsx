@@ -74,11 +74,17 @@ class Counter extends Component {
   // class Fields(arrow function)
   handleDecrease = () => {
     const nextCount = this.state.count - this.props.step;
-    this.setState({ count: nextCount });
+    this.setState({ count: nextCount }, () => {});
   };
   handleIncrease = () => {
+    console.log('1. [1] before : state.count = ', this.state.count);
     const nextCount = this.state.count + this.props.step;
-    this.setState({ count: nextCount });
+    this.setState({ count: nextCount }, () => {
+      // setState의 두번째 인수는 콜백함수를 받는데 그 콜백함수는
+      // 컴포넌트의 상태가 업데이트 되었음을 보장합니다
+      console.log('2. [3] callback : state.count = ', this.state.count);
+    });
+    console.log('3. [2] after : state.count = ', this.state.count);
   };
 }
 
