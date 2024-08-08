@@ -5,9 +5,10 @@ import './UserSearchBox.css';
 UserSearchBox.propTypes = {
   searchTerm: string.isRequired,
   onSearch: func, // optional
+  onReset: func, // optional
 };
 
-function UserSearchBox({ searchTerm, onSearch }) {
+function UserSearchBox({ searchTerm, onSearch, onReset }) {
   const id = useId();
 
   const handleSearch = (e) => {
@@ -17,12 +18,12 @@ function UserSearchBox({ searchTerm, onSearch }) {
     const input = document.getElementById(id);
     const button = input.closest('form').querySelector('[type="submit"]');
     const value = input.value.trim();
-    console.log(button);
 
     onSearch?.(value);
     if (value.length > 0) {
       onSearch?.(value);
       input.value = '';
+      button.focus();
       // 버튼 요소에 초점 이동
     } else {
       alert('검색어를 입력해주세요.');
@@ -30,8 +31,24 @@ function UserSearchBox({ searchTerm, onSearch }) {
     }
   };
 
+  const handleResetUsersList = (e) => {
+    e.preventDefault();
+    onReset?.();
+    const input = document.getElementById(id);
+    input.value = '';
+  };
+
+  const handleChange = (e) => {
+    onSearch?.(e.target.value);
+  };
+
   return (
-    <form className="UserSearchBox" onSubmit={handleSearch}>
+    <form
+      className="UserSearchBox"
+      onSubmit={handleSearch}
+      onReset={handleResetUsersList}
+      onChange={handleChange}
+    >
       <div className="control">
         <label htmlFor={id}>사용자 검색</label>
         <input
@@ -47,6 +64,7 @@ function UserSearchBox({ searchTerm, onSearch }) {
       <button type="submit" onClick={handleSearch}>
         찾기
       </button>
+      <button type="reset">목록 초기화</button>
     </form>
   );
 }
