@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import Playground from './Playground';
+import NoteApp from './NoteApp/App';
 import '@/styles/main.css';
 
 const container = document.getElementById('react-app');
@@ -8,7 +8,7 @@ const container = document.getElementById('react-app');
 if (container) {
   createRoot(container).render(
     <StrictMode>
-      <Playground />
+      <NoteApp />
     </StrictMode>
   );
 } else {
