@@ -1,13 +1,9 @@
-// import { UsersPage } from '@/pages/users';
-import Counter from '@/components/Counter';
-// import CounterClass from '@/components/Counter.class';
+import UsersPage from '@/pages/users/UsersPage';
 
 function Playground() {
   return (
     <div style={styles}>
-      <Counter min={-50} count={3} max={50}></Counter>
-      {/* <CounterClass></CounterClass> */}
-      {/* <UsersPage></UsersPage> */}
+      <UsersPage />
     </div>
   );
 }

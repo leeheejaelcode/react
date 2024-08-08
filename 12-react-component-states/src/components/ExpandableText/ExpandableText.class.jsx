@@ -37,6 +37,7 @@ class ExpandableText extends Component {
     }
 
     const buttonLabel = isExpand ? '축소' : '확장';
+
     return (
       <div className="ExpandableText" {...restProps}>
         <p>{isExpand ? children : renderText}</p>
@@ -51,7 +52,9 @@ class ExpandableText extends Component {
 
   handleExpand = () => {
     // 상태 업데이트 기능 추가
-    this.setState((state) => ({ isExpand: !state.isExpand }));
+    this.setState({
+      isExpand: !this.state.isExpand,
+    });
   };
 }
 
