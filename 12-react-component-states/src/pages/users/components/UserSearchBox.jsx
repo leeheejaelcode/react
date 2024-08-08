@@ -1,14 +1,20 @@
 import { useId } from 'react';
-import { string, func } from 'prop-types';
+import { string, func, bool } from 'prop-types';
 import './UserSearchBox.css';
 
 UserSearchBox.propTypes = {
   searchTerm: string.isRequired,
   onSearch: func, // optional
   onReset: func, // optional
+  isInstantSearch: bool, // optional
 };
 
-function UserSearchBox({ searchTerm, onSearch, onReset }) {
+function UserSearchBox({
+  searchTerm,
+  onSearch,
+  onReset,
+  isInstantSearch = false,
+}) {
   const id = useId();
 
   const handleSearch = (e) => {
@@ -31,15 +37,26 @@ function UserSearchBox({ searchTerm, onSearch, onReset }) {
     }
   };
 
-  const handleResetUsersList = (e) => {
-    e.preventDefault();
+  const handleResetUsersList = () => {
     onReset?.();
     const input = document.getElementById(id);
     input.value = '';
   };
 
-  const handleChange = (e) => {
-    onSearch?.(e.target.value);
+  const handleChange = isInstantSearch
+    ? (e) => {
+        onSearch?.(e.target.value);
+      }
+    : null;
+
+  const debounce = (callback, limit = 1000) => {
+    let timeout;
+    return function (e) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        callback.call(this, e);
+      }, limit);
+    };
   };
 
   return (
@@ -47,7 +64,7 @@ function UserSearchBox({ searchTerm, onSearch, onReset }) {
       className="UserSearchBox"
       onSubmit={handleSearch}
       onReset={handleResetUsersList}
-      onChange={handleChange}
+      onChange={debounce(handleChange)}
     >
       <div className="control">
         <label htmlFor={id}>사용자 검색</label>
@@ -61,10 +78,21 @@ function UserSearchBox({ searchTerm, onSearch, onReset }) {
           // readOnly
         />
       </div>
-      <button type="submit" onClick={handleSearch}>
+      <button type="submit" hidden={isInstantSearch} onClick={handleSearch}>
         찾기
       </button>
-      <button type="reset">목록 초기화</button>
+      <button type="reset" hidden={isInstantSearch}>
+        목록 초기화
+      </button>
+      {/* 밑에 코드는 렌더링 비용이 많이 듬 */}
+      {/* {isInstantSearch ? null : (
+        <>
+          <button type="submit" onClick={handleSearch}>
+            찾기
+          </button>
+          <button type="reset">목록 초기화</button>
+        </>
+      )} */}
     </form>
   );
 }

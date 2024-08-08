@@ -13,7 +13,8 @@
 // - [x] 찾기 실행후
 // - [x] 사용자 입력 경고 후, 초점 이동
 // - [x] 사용자 목록 초기화 기능 추가 (초기화 버튼)
-// - [ ] 사용자 입력 즉시, 찾기 기능 추가
+// - [x] 사용자 입력 즉시, 찾기 기능 추가
+// - [x] 실시간 검색 체크박스 기능 추가(찾기, 목록 초기화 버튼 토글)
 // - [ ] 잦은 상태 업데이트, 리-렌더 이슈
 // - [ ] 사용자 입력 디바운싱 or 쓰로틀링
 // - [ ] 사용자 목록 검색 정보를
@@ -24,16 +25,19 @@ import usersData from '@/data/users.json';
 import UserSearchBox from './components/UserSearchBox';
 import UserListCount from './components/UserListCount';
 import UsersList from './components/UsersList';
+import InstantSearchSwitch from './components/InstantSearchSwitch';
 
 function UsersPage() {
   // [상태 선언] ---------------------------------------------------
   const [users] = useState(usersData);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isInstantSearch, setInstantSearch] = useState(false);
   // [상태 업데이트] ------------------------------------------------
   // [상태 업데이트] ------------------------------------------------
   // 컴포넌트 상태 업데이트 함수를 실행하는 기능(함수)
   const handleSearch = (userInput) => setSearchTerm(userInput);
   const handleReset = () => setSearchTerm('');
+  const handleToggleInstantSearch = () => setInstantSearch(!isInstantSearch);
   // 포함 가능한 로직
   // 상태 쓰기(C)/읽기(R)/수정(U)/삭제(D)
   // 오직 이 컴포넌트 내부에서만 가능 (리액트에 변경 요청)
@@ -53,10 +57,15 @@ function UsersPage() {
 
   return (
     <div className="UsersPage">
+      <InstantSearchSwitch
+        isInstantSearch={isInstantSearch}
+        onToggle={handleToggleInstantSearch}
+      />
       <UserSearchBox
         searchTerm={searchTerm}
         onSearch={handleSearch}
         onReset={handleReset}
+        isInstantSearch={isInstantSearch}
       />
       <UsersList users={searchedUsersList} />
       <UserListCount
