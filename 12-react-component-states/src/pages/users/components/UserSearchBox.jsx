@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { string, func, bool } from 'prop-types';
 import './UserSearchBox.css';
+import { debounce, throttle } from '@/utils';
 
 UserSearchBox.propTypes = {
   searchTerm: string.isRequired,
@@ -43,28 +44,20 @@ function UserSearchBox({
     input.value = '';
   };
 
-  const handleChange = isInstantSearch
-    ? (e) => {
-        onSearch?.(e.target.value);
-      }
-    : null;
+  let handleChange = null;
 
-  const debounce = (callback, limit = 1000) => {
-    let timeout;
-    return function (e) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        callback.call(this, e);
-      }, limit);
-    };
-  };
+  if (isInstantSearch) {
+    handleChange = throttle((e) => {
+      onSearch?.(e.target.value);
+    }, 500);
+  }
 
   return (
     <form
       className="UserSearchBox"
       onSubmit={handleSearch}
       onReset={handleResetUsersList}
-      onChange={debounce(handleChange)}
+      onChange={handleChange}
     >
       <div className="control">
         <label htmlFor={id}>사용자 검색</label>
