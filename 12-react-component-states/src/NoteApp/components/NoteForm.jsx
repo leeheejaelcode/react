@@ -4,7 +4,9 @@ import { getUserList } from '../api/getUser';
 import './NoteForm.css';
 import { NoteType } from '../types/note';
 import { convertHTMLToText } from '@/utils/convertTextToHTMLString';
+import { useState } from 'react';
 
+// 데이터를 1회 가져오도록 설정
 const userList = getUserList();
 
 NoteForm.propTypes = {
@@ -16,45 +18,89 @@ function NoteForm({ mode = 'create', note }) {
   const titleId = useId();
   const contentId = useId();
   const userId = useId();
+  console.log(mode, note);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // [상태 선언]
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    userId: '',
+  });
+
+  // [상태 업데이트 기능]
+  // - 노트 제목, 내용, 작성자 정보를 하나의 핸들러를 사용해 업데이트 수행해야 함
+  const handleUpdateFormData = (e) => {
+    // Event {name,value}
+    const { name, value } = e.target;
+
+    const nextFormData = {
+      ...formData,
+      [name]: value,
+    };
+    setFormData(nextFormData);
   };
 
+  // 노트 생성
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 폼의 데이터를 리액트로 관리할 것인가? (성능 이슈 주의!)
+
+    // 아니면 네이티브로 관리할 것인가? (성능 이슈 없어요)
+  };
+
+  // 노트 초기화
   const handleReset = (e) => {
     e.preventDefault();
   };
 
+  // 노트 삭제
   const handleDelete = () => {
     console.log('delete');
   };
 
+  // 파생된 상태
+  // "생성" 또는 "수정" 모드 확인
   const isCreateMode = mode.includes('create');
   const submitButtonLabel = isCreateMode ? '추가' : '수정';
 
-  if (note) {
-    note.content;
-  }
+  // if (note) {
+  //   note.content;
+  // }
 
   return (
     <form className="NoteForm" onSubmit={handleSubmit} onReset={handleReset}>
       <div className="formControl">
         <label htmlFor={titleId}>제목</label>
-        <input type="text" id={titleId} defaultValue={note?.title} />
+        <input
+          type="text"
+          id={titleId}
+          value={formData.title}
+          name="title"
+          onChange={handleUpdateFormData}
+          // defaultValue={note?.title}
+        />
       </div>
 
       <div className="formControl">
         <label htmlFor={contentId}>내용</label>
         <textarea
           id={contentId}
-          defaultValue={note && convertHTMLToText(note.content)}
+          value={formData.content}
+          onChange={handleUpdateFormData}
+          name="content"
+          // defaultValue={note && convertHTMLToText(note.content)}
         />
       </div>
 
       {isCreateMode && (
         <div className="formControl">
           <label htmlFor={userId}>작성자</label>
-          <select id={userId}>
+          <select
+            id={userId}
+            value={formData.userId}
+            onChange={handleUpdateFormData}
+            name="userId"
+          >
             <option>작성자 선택</option>
             {userList.map((user) => (
               <option key={user.id} value={user.id}>
