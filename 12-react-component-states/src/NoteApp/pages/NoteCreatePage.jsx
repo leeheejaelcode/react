@@ -1,22 +1,27 @@
+import { func, number } from 'prop-types';
+import { ROUTES } from '../constants/routes';
 import BackLink from '../components/BackLink';
 import NoteForm from '../components/NoteForm';
 import './NoteCreatePage.css';
-import { func } from 'prop-types';
-import { ROUTES } from '@/NoteApp/constants/routes';
 
 NoteCreatePage.propTypes = {
+  newNoteId: number.isRequired,
+  onCreate: func.isRequired,
   onChangeRoute: func.isRequired,
 };
 
-function NoteCreatePage({ onChangeRoute }) {
-  const handleGoApp = () => {
-    onChangeRoute(ROUTES.list);
-  };
+function NoteCreatePage({ newNoteId, onCreate, onChangeRoute }) {
+  const handleBackToList = () => onChangeRoute(ROUTES.list);
 
   return (
     <div className="NoteCreatePage">
-      <BackLink onClick={handleGoApp} />
-      <NoteForm mode="create" />
+      <BackLink onClick={handleBackToList} />
+      <NoteForm
+        mode="create"
+        onCreate={onCreate}
+        onBackToList={handleBackToList}
+        newNoteId={newNoteId}
+      />
     </div>
   );
 }

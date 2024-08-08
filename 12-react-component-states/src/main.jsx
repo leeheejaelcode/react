@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import NoteApp from './NoteApp/App';
+
 import '@/styles/main.css';
+import NoteApp from '@/NoteApp/App';
 
 const container = document.getElementById('react-app');
 

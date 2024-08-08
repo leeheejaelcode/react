@@ -1,12 +1,13 @@
-export function throttle(callback, timeout = 500) {
-  let waiting = false;
-  return function (...args) {
-    if (!waiting) {
-      waiting = true;
+export function throttle(callback, timeout = 400) {
+  let isCalled = false;
+
+  return (...args) => {
+    if (!isCalled) {
       setTimeout(() => {
         callback.apply(null, args);
-        waiting = false;
+        isCalled = false;
       }, timeout);
+      isCalled = true;
     }
   };
 }

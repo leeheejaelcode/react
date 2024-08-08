@@ -10,41 +10,34 @@
 // ⭐️ 추가 실습
 // --------------------------------------------------------------------------
 // - [x] 사용자 Enter 키 입력 시, 찾기
-// - [x] 찾기 실행후
-// - [x] 사용자 입력 경고 후, 초점 이동
+// - [x] 찾기 실행 후, 검색 입력 필드 초기화
+// - [x] 사용자 입력 경고 후, 검색 필드에 초점 이동
 // - [x] 사용자 목록 초기화 기능 추가 (초기화 버튼)
-// - [x] 사용자 입력 즉시, 찾기 기능 추가
-// - [x] 실시간 검색 체크박스 기능 추가(찾기, 목록 초기화 버튼 토글)
-// - [x] 잦은 상태 업데이트, 리-렌더 이슈
-// - [x] 사용자 입력 디바운싱 or 쓰로틀링
-// - [x] 디바운싱 (사용자 액션이 멈추면 그 때 액션 실행)
-// - [x] 쓰로틀링 (사용자 액션이 멈추지 않아도, 특정 시간이 흐르면 액션 실행)
-// - [ ] 사용자 목록 검색 정보를
+// - [x] 사용자 목록 초기화 후, 검색 필드에 초점 이동
+// - [x] 사용자 입력 즉시, 찾기 기능 추가 (HINT: 리액트 상태 관리)
+// - [x] 실시간 검색 체크박스 기능 추가 (찾기, 목록 초기화 버튼 토글)
+// - [x] 잦은 상태 업데이트, 리-렌더 이슈 (확인 후, 조치)
+// - [x] 사용자 입력 디바운싱(debouncing) or 쓰로틀링 (throttling)
 // --------------------------------------------------------------------------
 
 import { useState } from 'react';
-import usersData from '@/data/users.json';
-import UserSearchBox from './components/UserSearchBox';
-import UserListCount from './components/UserListCount';
-import UsersList from './components/UsersList';
+import usersData from '@/data/users';
 import InstantSearchSwitch from './components/InstantSearchSwitch';
+import UserListCount from './components/UserListCount';
+import UserSearchBox from './components/UserSearchBox';
+import UsersList from './components/UsersList';
 
 function UsersPage() {
   // [상태 선언] ---------------------------------------------------
   const [users] = useState(usersData);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isInstantSearch, setInstantSearch] = useState(false);
-  // [상태 업데이트] ------------------------------------------------
+  const [isInstantSearch, setIsInstantSearch] = useState(false);
+
   // [상태 업데이트] ------------------------------------------------
   // 컴포넌트 상태 업데이트 함수를 실행하는 기능(함수)
   const handleSearch = (userInput) => setSearchTerm(userInput);
   const handleReset = () => setSearchTerm('');
-  const handleToggleInstantSearch = () => setInstantSearch(!isInstantSearch);
-  // 포함 가능한 로직
-  // 상태 쓰기(C)/읽기(R)/수정(U)/삭제(D)
-  // 오직 이 컴포넌트 내부에서만 가능 (리액트에 변경 요청)
-
-  // 사용자가 입력한 검색어로부터 필터링 된 사용자 목록을 [ UsersList ] 컴포넌트에 전달
+  const handleToggleInstantSearch = () => setIsInstantSearch(!isInstantSearch);
 
   // [파생된 상태] -------------------------------------------------
   const searchedUsersList = users.filter(
@@ -54,9 +47,7 @@ function UsersPage() {
       user.city.includes(searchTerm)
   );
 
-  const currentSearchedUsersCount = searchedUsersList.length;
-  const totalUsersCount = users.length;
-
+  // [마크업 (JSX)] -----------------------------------------------
   return (
     <div className="UsersPage">
       <InstantSearchSwitch
@@ -65,14 +56,14 @@ function UsersPage() {
       />
       <UserSearchBox
         searchTerm={searchTerm}
+        isInstantSearch={isInstantSearch}
         onSearch={handleSearch}
         onReset={handleReset}
-        isInstantSearch={isInstantSearch}
       />
       <UsersList users={searchedUsersList} />
       <UserListCount
-        currentSearchedUsersCount={currentSearchedUsersCount}
-        totalUsersCount={totalUsersCount}
+        searchedUsersCount={searchedUsersList.length}
+        totalUsersCount={users.length}
       />
     </div>
   );

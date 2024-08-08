@@ -1,5 +1,4 @@
 .NoteDetailPage {
-
   max-inline-size: 33rem;
 
   h2 {
@@ -9,14 +8,25 @@
   }
 
   span {
-    display: inline-block;
+    display: inline-flex;
+    justify-content: space-between;
+    gap: 6px;
     font-size: 14px;
     font-weight: 600;
     border-radius: 999px;
-    padding: 2px 48px 2px 12px;
+    padding: 2px 12px;
     background: #fff;
     color: #111;
     margin-block-end: 24px;
+
+    a {
+      text-decoration: none;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 
   a {
@@ -31,5 +41,4 @@
     text-decoration-style: dashed;
     text-underline-offset: 12px;
   }
-
 }
