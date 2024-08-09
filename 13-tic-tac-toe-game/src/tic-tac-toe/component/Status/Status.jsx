@@ -5,8 +5,10 @@
   /* <h2>비겼어요... 😳</h2> */
 }
 
+import S from './Status.module.css';
+
 function Status() {
-  return <h2 className="Status">플레이어 : 🟨</h2>;
+  return <h2 className={S.component}>플레이어 : 🟨</h2>;
 }
 
 export default Status;

@@ -1,7 +1,6 @@
-.History {
+.component {
   margin-top: 38px;
   min-width: 100px;
-
 
   ol {
     margin: 0;
@@ -10,7 +9,6 @@
     flex-flow: column;
     gap: 8px;
   }
-
 
   li {
     list-style-type: decimal-leading-zero;
