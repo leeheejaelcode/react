@@ -20,7 +20,7 @@ Square.propTypes = {
 };
 
 // 상태를 가지지 않는(Stateless Component)
-function Square({ children, onPlay, style }) {
+function Square({ children, onPlay, ...restProps }) {
   // [파생된 상태]
   const isDisabled = !!children;
   return (
@@ -28,7 +28,7 @@ function Square({ children, onPlay, style }) {
       className={S.component}
       disabled={isDisabled}
       onClick={onPlay}
-      style={style}
+      {...restProps}
     >
       {children}
     </button>
