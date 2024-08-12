@@ -1,10 +1,11 @@
 import S from './History.module.css';
-import { number, arrayOf } from 'prop-types';
+import { number, arrayOf, func } from 'prop-types';
 import { OneOfPlayerListType } from '@/tic-tac-toe/types/type.d';
 
 History.propTypes = {
   gameIndex: number.isRequired,
   gameHistory: arrayOf(OneOfPlayerListType),
+  onTimeTravel: func,
 };
 
 function History({ gameIndex, gameHistory = [], onTimeTravel }) {
