@@ -5,8 +5,13 @@ import MotionOneTimeline from './motion-one-timeline';
 import MotionOneInView from './motion-one-in-view';
 import MotionOneScroll from './motion-one-in-scroll';
 import MotionOneStagger from './motion-one-stagger';
-
+import Home from './home';
 const routes = [
+  {
+    title: '리액트로 만드는 싱글 페이지 애플리케이션',
+    path: '/',
+    element: <Home />,
+  },
   {
     title: '리-렌더 없이 기억',
     path: '/remember-without-re-render',
