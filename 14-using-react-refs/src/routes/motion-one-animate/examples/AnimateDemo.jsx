@@ -16,22 +16,31 @@ import { useRef } from 'react';
 
 function AnimateDemo() {
   const lollipopRef = useRef(null);
-  const handleMoveAnimate = () => {
+  const progressRef = useRef(null);
+  const handleMoveAnimation = () => {
     // animate(선택자_또는_DOM_요소_집합, 속성, 옵션?)
     const lollipopElement = lollipopRef.current;
     // const {current: element} = lollipopRef;
-    animate(
-      lollipopElement,
-      { x: 600, rotate: 360 },
-      { duration: 1.5, delay: 0.5 }
-    );
+    // animate(selector or HTMLElement or NodeList, properties, options?);
+    animate(lollipopElement, { x: 400, rotate: 360 * 7 }, { duration: 4 });
   };
 
-  const handleProgressAnimate = () => {};
+  const handleProgressAnimation = () => {
+    const progressElement = progressRef.current;
+
+    const progressAnimation = (progress) => {
+      progressElement.textContent = Math.round(progress * 100) + '%';
+    };
+
+    const options = {
+      duration: 5,
+    };
+    animate(progressAnimation, options);
+  };
 
   return (
     <div className={S.component}>
-      <button className={S.button} type="button" onClick={handleMoveAnimate}>
+      <button className={S.button} type="button" onClick={handleMoveAnimation}>
         무빙 애니메이션
       </button>
 
@@ -41,11 +50,14 @@ function AnimateDemo() {
         <button
           type="button"
           className={S.button}
-          onClick={handleProgressAnimate}
+          onClick={handleProgressAnimation}
         >
           진행률 애니메이션
         </button>
-        <output className={S.output}>0%</output>
+
+        <output ref={progressRef} className={S.output}>
+          0%
+        </output>
       </div>
     </div>
   );
