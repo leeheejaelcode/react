@@ -1,0 +1,11 @@
+.component {
+  * {
+    visibility: hidden;
+    stroke-dashoffset: 1;
+    stroke-dasharray: 1;
+  }
+
+  circle {
+    transform-origin: 160px center;
+  }
+}

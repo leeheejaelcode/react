@@ -10,7 +10,7 @@
 
 import { number } from 'prop-types';
 import S from './SVGPathTimeline.module.css';
-import { animate, timeline } from 'motion';
+import { timeline } from 'motion';
 import { useRef } from 'react';
 
 SVGPathTimeline.propTypes = {
@@ -24,16 +24,28 @@ function SVGPathTimeline({ size = 60 }) {
     const circleElement = svgCircleRef.current;
     const pathElement = svgPathRef.current;
 
-    animate(
-      circleElement,
-      { strokeDashoffset: [1, 0], visibility: 'visible' },
-      { duration: 0.4, easing: 'ease-in-out' }
-    );
-    animate(
-      pathElement,
-      { strokeDashoffset: [1, 0], visibility: 'visible' },
-      { duration: 0.4, easing: 'ease-in-out' }
-    );
+    timeline([
+      [
+        circleElement,
+        { strokeDashoffset: [1, 0], visibility: 'visible' },
+        { duration: 1, easing: 'ease-in-out' },
+      ],
+      [
+        pathElement,
+        { strokeDashoffset: [1, 0], visibility: 'visible' },
+        { duration: 0.6, easing: 'ease-in-out', at: '-0.2' },
+      ],
+    ]);
+    // animate(
+    //   circleElement,
+    //   { strokeDashoffset: [1, 0], visibility: 'visible' },
+    //   { duration: 0.4, easing: 'ease-in-out' }
+    // );
+    // animate(
+    //   pathElement,
+    //   { strokeDashoffset: [1, 0], visibility: 'visible' },
+    //   { duration: 0.4, easing: 'ease-in-out' }
+    // );
   };
 
   return (
