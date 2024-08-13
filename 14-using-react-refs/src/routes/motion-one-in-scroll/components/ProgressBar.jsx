@@ -7,6 +7,8 @@
 
 import { oneOf, string } from 'prop-types';
 import S from './Progress.module.css';
+import { scroll, animate } from 'motion';
+import { useRef } from 'react';
 
 ProgressBar.propTypes = {
   containerSelector: string,
@@ -14,13 +16,34 @@ ProgressBar.propTypes = {
 };
 
 function ProgressBar({ containerSelector = null, axis = 'y' }) {
-  console.log(containerSelector, axis);
+  const progressBarRef = useRef(null);
+  const outputRef = useRef(null);
+
+  // console.log(containerSelector, axis);
+  const setProgressBar = () => {
+    const container = document.querySelector(containerSelector);
+    const scrollOptions = {
+      container,
+      axis,
+    };
+    // 스크롤 애니메이션
+    // API 1
+    // scroll(animate(progressBarRef.current, { scaleX: 1 }));
+    // API 2
+    scroll(({ y: { progress } }) => {
+      const percentValue = (progress * 100).toFixed(0) + '%';
+      animate(progressBarRef.current, { scaleX: progress });
+      outputRef.current.value = percentValue;
+    }, scrollOptions);
+  };
 
   return (
-    <>
-      <div className={S.progress} />
-      <output className={S.output}>0%</output>
-    </>
+    <div ref={setProgressBar}>
+      <div className={S.progress} ref={progressBarRef} />
+      <output className={S.output} ref={outputRef}>
+        0%
+      </output>
+    </div>
   );
 }
 

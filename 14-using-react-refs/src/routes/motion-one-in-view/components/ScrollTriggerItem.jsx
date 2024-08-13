@@ -1,7 +1,7 @@
 import { exact, number, string } from 'prop-types';
 import S from './ScrollTriggerItem.module.css';
 import { useRef } from 'react';
-import { animate, inView, timeline } from 'motion';
+import { inView, timeline } from 'motion';
 ScrollTriggerItem.propTypes = {
   item: exact({
     id: number.isRequired,
