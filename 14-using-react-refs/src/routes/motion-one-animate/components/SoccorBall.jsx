@@ -1,12 +1,20 @@
-import { number, string } from 'prop-types';
 import S from './SoccorBall.module.css';
+import { forwardRef } from 'react';
 
-SoccorBall.propTypes = {
-  size: number,
-  color: string,
-};
+// forwardRef() 함수를 사용하면 prop-types를 사용할 수 없다
+// import { number, string } from 'prop-types';
+// SoccorBall.propTypes = {
+//   size: number,
+//   color: string,
+// };
 
-function SoccorBall({ size = 40, color = '#450fbf', ...restProps }) {
+// 고차 컴포넌트
+
+// Render - 함수 컴포넌트
+// eslint-disable-next-line react/prop-types
+function _SoccorBall({ size = 40, color = '#450fbf', ...restProps }, ref) {
+  console.log(ref);
+  // key, ref는 프롭으로 전달이 되지 않는다
   return (
     <svg
       className={S.component}
@@ -55,5 +63,8 @@ function SoccorBall({ size = 40, color = '#450fbf', ...restProps }) {
     </svg>
   );
 }
+
+_SoccorBall.displayName = 'SoccorBall';
+const SoccorBall = forwardRef(_SoccorBall);
 
 export default SoccorBall;

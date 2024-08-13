@@ -6,19 +6,41 @@
 // - [ ] 옵션(duration, delay, easing, direction, repeat, autoPlay)을 설정해보세요.
 // --------------------------------------------------------------------------
 
+import { useRef } from 'react';
 import SoccorBall from '../components/SoccorBall';
 import S from './AnimateDemo.module.css';
 
 function AnimateKeyframeDemo() {
-  const handleMoveAnimate = () => {};
+  // 컴포넌트 내부, 실제 DOM 엘리먼트 참조
+  const containerRef = useRef(null); // { current: null }
+  // 아직은 리액트 월드
+  // 컴포넌트 엘리먼트가 아직, 실제 DOM 엘리먼트가 되기 이전 시점
+  // console.log(1, containerRef);
+
+  /* -------------------------------------------------------------------------- */
+
+  // 하위 컴포넌트 내부, 실제 DOM 엘리먼트 참조
+  const soccorBallRef = useRef(null); // { current: null }
+  console.log(1, soccorBallRef);
+
+  const handleMoveAnimate = () => {
+    // 여기는 실제 DOM 월드
+    // 컴포넌트 엘리먼트가 실제 DOM 엘리먼트가 된 이후 시점
+    // console.log(2, containerRef); // { current: HTMLDivElement }
+    //
+    // --------------------------------------------------------------------------
+    //
+
+    console.log(2, soccorBallRef); // { current: SVGElement }
+  };
 
   return (
-    <div className={S.component}>
+    <div className={S.component} ref={containerRef}>
       <button className={S.button} type="button" onClick={handleMoveAnimate}>
         키프레임 애니메이션
       </button>
 
-      <SoccorBall size={60} />
+      <SoccorBall ref={soccorBallRef} size={60} />
     </div>
   );
 }
