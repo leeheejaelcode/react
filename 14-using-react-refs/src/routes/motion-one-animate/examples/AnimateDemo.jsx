@@ -27,13 +27,14 @@ function AnimateDemo() {
 
   const handleProgressAnimation = () => {
     const progressElement = progressRef.current;
-
     const progressAnimation = (progress) => {
-      progressElement.textContent = Math.round(progress * 100) + '%';
+      const animationValue = Math.round(progress * 100) + '%';
+      progressElement.value = animationValue;
     };
 
     const options = {
       duration: 5,
+      easing: 'ease-in-out',
     };
     animate(progressAnimation, options);
   };
