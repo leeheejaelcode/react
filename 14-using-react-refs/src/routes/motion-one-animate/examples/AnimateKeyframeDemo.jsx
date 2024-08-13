@@ -9,10 +9,11 @@
 import { useRef } from 'react';
 import SoccorBall from '../components/SoccorBall';
 import S from './AnimateDemo.module.css';
+import { animate, spring } from 'motion';
 
 function AnimateKeyframeDemo() {
   // 컴포넌트 내부, 실제 DOM 엘리먼트 참조
-  const containerRef = useRef(null); // { current: null }
+  // const containerRef = useRef(null); // { current: null }
   // 아직은 리액트 월드
   // 컴포넌트 엘리먼트가 아직, 실제 DOM 엘리먼트가 되기 이전 시점
   // console.log(1, containerRef);
@@ -21,7 +22,7 @@ function AnimateKeyframeDemo() {
 
   // 하위 컴포넌트 내부, 실제 DOM 엘리먼트 참조
   const soccorBallRef = useRef(null); // { current: null }
-  console.log(1, soccorBallRef);
+  // console.log(1, soccorBallRef);
 
   const handleMoveAnimate = () => {
     // 여기는 실제 DOM 월드
@@ -31,11 +32,32 @@ function AnimateKeyframeDemo() {
     // --------------------------------------------------------------------------
     //
 
-    console.log(2, soccorBallRef); // { current: SVGElement }
+    // console.log(2, soccorBallRef); // { current: SVGElement }
+    const { current: element } = soccorBallRef;
+    animate(
+      element,
+      {
+        x: [0, 400, null, 0],
+        rotate: [0, 360, null, -360],
+        scaleY: [1, 0.5, 1],
+      },
+      {
+        duration: 1,
+        easing: 'ease-out',
+        repeat: 2,
+        // x: {
+        //   easing: spring({
+        //     velocity: 8000,
+        //     stiffness: 100,
+        //     damping: 10,
+        //   }),
+        // },
+      }
+    );
   };
 
   return (
-    <div className={S.component} ref={containerRef}>
+    <div className={S.component} /*ref={containerRef}*/>
       <button className={S.button} type="button" onClick={handleMoveAnimate}>
         키프레임 애니메이션
       </button>
