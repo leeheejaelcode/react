@@ -1,10 +1,22 @@
-import { forwardRef } from 'react';
+// import { forwardRef } from 'react';
 import S from './CircleLine.module.css';
+import { any, exact, number, string } from 'prop-types';
 
-function CircleLine({ strokeColor = '#D85555 ', strokeWidth = 4 }, ref) {
+CircleLine.propTypes = {
+  strokeColor: string,
+  strokeWidth: number,
+  forwardRef: exact({
+    current: any,
+  }),
+};
+
+function CircleLine({
+  strokeColor = '#D85555 ',
+  strokeWidth = 4,
+  forwardRef = { current: null },
+}) {
   return (
     <svg
-      ref={ref}
       className={S.component}
       width={163}
       height={50}
@@ -12,6 +24,7 @@ function CircleLine({ strokeColor = '#D85555 ', strokeWidth = 4 }, ref) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       // ref={svgRef}
+      ref={forwardRef}
     >
       <circle
         cx={25}
@@ -42,4 +55,5 @@ function CircleLine({ strokeColor = '#D85555 ', strokeWidth = 4 }, ref) {
     </svg>
   );
 }
-export default forwardRef(CircleLine);
+// export default forwardRef(CircleLine);
+export default CircleLine;

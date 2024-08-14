@@ -108,6 +108,7 @@ function PracticeSVGPathAnimation() {
           />
         </svg> */}
         <CircleLine ref={svgRef} />
+        <CircleLine forwardRef={svgRef} />
       </div>
     </>
   );
