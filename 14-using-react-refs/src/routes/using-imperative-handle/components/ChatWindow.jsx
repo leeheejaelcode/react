@@ -1,6 +1,6 @@
 import { useId, useRef, useImperativeHandle } from 'react';
 import S from './ChatWindow.module.css';
-import { arrayOf, bool, exact, string, func } from 'prop-types';
+import { arrayOf, bool, exact, string, func, any } from 'prop-types';
 
 // ---------------------------------------------------------------------------
 // ✅ 컴포넌트 내부에 명령형 핸들이 없을 경우 문제 해결
@@ -21,7 +21,7 @@ ChatWindow.propTypes = {
   messages: MessageListType.isRequired,
   onAddMessage: func.isRequired,
   $$ref: exact({
-    current: string,
+    current: any,
   }),
 };
 

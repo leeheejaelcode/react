@@ -1,6 +1,6 @@
 import ChatWindow from './components/ChatWindow';
 import S from './style.module.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useImperativeHandle } from 'react';
 
 const INITIAL_CHAT_MESSAGES = [
   { id: 'chat-1', message: '오늘 저녁에 뭐 먹을까?', isMe: false },
@@ -35,8 +35,8 @@ function UsingImperativeHandle() {
   };
 
   const mountedMainElement = () => {
-    const { scrollDownList } = imperativeHandleRef.current;
-    scrollDownList?.();
+    const imperativeHandle = imperativeHandleRef.current;
+    imperativeHandle?.scrollDownList?.();
     // const ol = chatListRef.current;
     // setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
   };
