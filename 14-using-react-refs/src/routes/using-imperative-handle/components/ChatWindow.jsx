@@ -31,7 +31,7 @@ function ChatWindow({ messages, onAddMessage }) {
 
   const sendMessage = (newMessage) => {
     const textarea = textareaRef.current;
-    const ol = olRef.current;
+    // const ol = olRef.current;
 
     if (newMessage.length <= 0) {
       alert('메시지 내용을 입력하세요!');
@@ -43,9 +43,9 @@ function ChatWindow({ messages, onAddMessage }) {
     textarea.value = '';
 
     // 타이머
-    setTimeout(() => {
-      ol.scrollTo(0, ol.scrollHeight);
-    });
+    // setTimeout(() => {
+    //   ol.scrollTo(0, ol.scrollHeight);
+    // });
   };
 
   const handleKeyDown = (e) => {
@@ -62,11 +62,24 @@ function ChatWindow({ messages, onAddMessage }) {
     }
   };
 
+  const scrollDownList = (el) => {
+    if (el) {
+      setTimeout(() => {
+        el.scrollTo(0, el.scrollHeight);
+      });
+    }
+  };
+
+  const mountedList = (el) => {
+    olRef.current = el;
+    scrollDownList(el);
+  };
+
   return (
     <section className={S.component}>
       <h2 className="sr-only">채팅 화면</h2>
 
-      <ol ref={olRef} className={S.chats}>
+      <ol ref={mountedList} className={S.chats}>
         {messages.map(({ id, isMe, message }) => {
           const classNames = `${S.chat} ${isMe ? S.me : ''}`.trim();
 
