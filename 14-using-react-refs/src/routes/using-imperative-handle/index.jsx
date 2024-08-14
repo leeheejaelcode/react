@@ -24,8 +24,7 @@ function UsingImperativeHandle() {
   // 채팅 메시지 목록 데이터
   const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
   // 하위 컴포넌트 내부 돔 엘리먼트 참조 객체
-
-  const chatListRef = useRef(null);
+  const imperativeHandleRef = useRef(null);
   const handleAdMessage = (message) => {
     const newMessage = {
       id: `chat-${chatMessages.length + 1}`,
@@ -36,8 +35,10 @@ function UsingImperativeHandle() {
   };
 
   const mountedMainElement = () => {
-    const ol = chatListRef.current;
-    setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
+    const { scrollDownList } = imperativeHandleRef.current;
+    scrollDownList?.();
+    // const ol = chatListRef.current;
+    // setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
   };
 
   return (
@@ -74,7 +75,7 @@ function UsingImperativeHandle() {
         </p>
       </div>
       <ChatWindow
-        $$ref={chatListRef}
+        $$ref={imperativeHandleRef}
         messages={chatMessages}
         onAddMessage={handleAdMessage}
       />

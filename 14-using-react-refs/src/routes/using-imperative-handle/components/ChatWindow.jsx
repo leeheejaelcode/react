@@ -1,4 +1,4 @@
-import { useId, useRef } from 'react';
+import { useId, useRef, useImperativeHandle } from 'react';
 import S from './ChatWindow.module.css';
 import { arrayOf, bool, exact, string, func } from 'prop-types';
 
@@ -29,6 +29,17 @@ function ChatWindow({ messages, onAddMessage, $$ref }) {
   const id = useId();
   const textareaRef = useRef(null);
   const olRef = useRef(null);
+  useImperativeHandle($$ref, () => {
+    // 명령형 핸들을 생성
+    const scrollDownList = () => {
+      const ol = olRef.current;
+      setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
+    };
+    // 생성한 명령형 핸들을 상위 컴포넌트에 노출(공개)
+    return {
+      scrollDownList,
+    };
+  });
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -73,14 +84,6 @@ function ChatWindow({ messages, onAddMessage, $$ref }) {
     }
   };
 
-  // const scrollDownList = (el) => {
-  //   if (el) {
-  //     setTimeout(() => {
-  //       el.scrollTo(0, el.scrollHeight);
-  //     });
-  //   }
-  // };
-
   // const mountedList = (el) => {
   //   olRef.current = el;
   //   // scrollDownList(el);
@@ -93,7 +96,7 @@ function ChatWindow({ messages, onAddMessage, $$ref }) {
       <ol
         //
         //ref={mountedList}
-        ref={$$ref}
+        ref={olRef}
         className={S.chats}
       >
         {messages.map(({ id, isMe, message }) => {
