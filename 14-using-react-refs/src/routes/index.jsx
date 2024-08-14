@@ -5,6 +5,7 @@ import MotionOneTimeline from './motion-one-timeline';
 import MotionOneInView from './motion-one-in-view';
 import MotionOneScroll from './motion-one-in-scroll';
 import MotionOneStagger from './motion-one-stagger';
+import UsingImperativeHandle from './using-imperative-handle';
 import Home from './home';
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     title: 'DOM 노드 접근/조작',
     path: '/dom-node-access-and-manipulation',
     element: <DOMNodeAccessAndManipulation />,
+  },
+  {
+    title: '명령형 핸들 노출',
+    path: '/using-imperative-handle',
+    element: <UsingImperativeHandle />,
   },
   {
     title: '모션원 animate()',
