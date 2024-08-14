@@ -1,7 +1,37 @@
 import ChatWindow from './components/ChatWindow';
 import S from './style.module.css';
+import { useState } from 'react';
 
+const INITIAL_CHAT_MESSAGES = [
+  { id: 'chat-1', message: '오늘 저녁에 뭐 먹을까?', isMe: false },
+  { id: 'chat-2', message: '오늘? 저녁에? 뭐 먹지?', isMe: true },
+  { id: 'chat-3', message: '치킨 먹을까? 🐓 🍗 어때?', isMe: false },
+  { id: 'chat-4', message: '치킨? 뭐 매일 치킨이야? 난 싫어.', isMe: true },
+  { id: 'chat-5', message: '그럼 짜장에 탕수육 어때?', isMe: false },
+  {
+    id: 'chat-6',
+    message: '별로... 하아 좀 맛있는 거 없나? 그냥 회 먹자. 알았지?',
+    isMe: true,
+  },
+  { id: 'chat-7', message: '음.... 그래. 알았어.', isMe: false },
+  {
+    id: 'chat-8',
+    message: '좋아! 좀 있다 사가정역 2번 출구에서 만나~ 😃 ',
+    isMe: true,
+  },
+];
 function UsingImperativeHandle() {
+  // 채팅 메시지 목록 데이터
+  const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
+  const handleAdMessage = (message) => {
+    console.log(message);
+    const newMessage = {
+      id: `chat-${chatMessages.length + 1}`,
+      message,
+      isMe: true,
+    };
+    setChatMessages((messages) => [...messages, newMessage]);
+  };
   return (
     <main className={S.component}>
       <h1 className={S.headline} lang="en">
@@ -35,7 +65,7 @@ function UsingImperativeHandle() {
           훅을 사용합니다. 이 훅을 사용하는 방법을 학습합니다.
         </p>
       </div>
-      <ChatWindow />
+      <ChatWindow messages={chatMessages} onAddMessage={handleAdMessage} />
     </main>
   );
 }
