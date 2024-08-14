@@ -1,6 +1,6 @@
 import ChatWindow from './components/ChatWindow';
 import S from './style.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const INITIAL_CHAT_MESSAGES = [
   { id: 'chat-1', message: '오늘 저녁에 뭐 먹을까?', isMe: false },
@@ -23,8 +23,10 @@ const INITIAL_CHAT_MESSAGES = [
 function UsingImperativeHandle() {
   // 채팅 메시지 목록 데이터
   const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
+  // 하위 컴포넌트 내부 돔 엘리먼트 참조 객체
+
+  const chatListRef = useRef(null);
   const handleAdMessage = (message) => {
-    console.log(message);
     const newMessage = {
       id: `chat-${chatMessages.length + 1}`,
       message,
@@ -32,8 +34,14 @@ function UsingImperativeHandle() {
     };
     setChatMessages((messages) => [...messages, newMessage]);
   };
+
+  const mountedMainElement = () => {
+    const ol = chatListRef.current;
+    setTimeout(() => ol.scrollTo(0, ol.scrollHeight));
+  };
+
   return (
-    <main className={S.component}>
+    <main className={S.component} ref={mountedMainElement}>
       <h1 className={S.headline} lang="en">
         상위 컴포넌트에 명령형 핸들 노출하기
       </h1>
@@ -65,7 +73,11 @@ function UsingImperativeHandle() {
           훅을 사용합니다. 이 훅을 사용하는 방법을 학습합니다.
         </p>
       </div>
-      <ChatWindow messages={chatMessages} onAddMessage={handleAdMessage} />
+      <ChatWindow
+        $$ref={chatListRef}
+        messages={chatMessages}
+        onAddMessage={handleAdMessage}
+      />
     </main>
   );
 }

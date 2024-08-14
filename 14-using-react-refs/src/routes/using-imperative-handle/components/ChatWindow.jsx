@@ -2,6 +2,13 @@ import { useId, useRef } from 'react';
 import S from './ChatWindow.module.css';
 import { arrayOf, bool, exact, string, func } from 'prop-types';
 
+// ---------------------------------------------------------------------------
+// ✅ 컴포넌트 내부에 명령형 핸들이 없을 경우 문제 해결
+// ---------------------------------------------------------------------------
+// - [x] 컴포넌트 DOM 엘리먼트 참조를 외부에 노출: forwardRef() / React v19 ($$ref prop)
+// - [ ] 컴포넌트 DOM 엘리먼트를 제어할 수 있는 명령형 핸들 외부에 노출: useImperativeHandle()
+// ---------------------------------------------------------------------------
+
 const MessageType = exact({
   id: string.isRequired,
   message: string.isRequired,
@@ -13,9 +20,12 @@ const MessageListType = arrayOf(MessageType);
 ChatWindow.propTypes = {
   messages: MessageListType.isRequired,
   onAddMessage: func.isRequired,
+  $$ref: exact({
+    current: string,
+  }),
 };
 
-function ChatWindow({ messages, onAddMessage }) {
+function ChatWindow({ messages, onAddMessage, $$ref }) {
   const id = useId();
   const textareaRef = useRef(null);
   const olRef = useRef(null);
@@ -46,6 +56,7 @@ function ChatWindow({ messages, onAddMessage }) {
     // setTimeout(() => {
     //   ol.scrollTo(0, ol.scrollHeight);
     // });
+    // scrollDownList(ol);
   };
 
   const handleKeyDown = (e) => {
@@ -62,24 +73,29 @@ function ChatWindow({ messages, onAddMessage }) {
     }
   };
 
-  const scrollDownList = (el) => {
-    if (el) {
-      setTimeout(() => {
-        el.scrollTo(0, el.scrollHeight);
-      });
-    }
-  };
+  // const scrollDownList = (el) => {
+  //   if (el) {
+  //     setTimeout(() => {
+  //       el.scrollTo(0, el.scrollHeight);
+  //     });
+  //   }
+  // };
 
-  const mountedList = (el) => {
-    olRef.current = el;
-    scrollDownList(el);
-  };
+  // const mountedList = (el) => {
+  //   olRef.current = el;
+  //   // scrollDownList(el);
+  // };
 
   return (
     <section className={S.component}>
       <h2 className="sr-only">채팅 화면</h2>
 
-      <ol ref={mountedList} className={S.chats}>
+      <ol
+        //
+        //ref={mountedList}
+        ref={$$ref}
+        className={S.chats}
+      >
         {messages.map(({ id, isMe, message }) => {
           const classNames = `${S.chat} ${isMe ? S.me : ''}`.trim();
 
