@@ -6,14 +6,75 @@
 // - [ ] <SoccorBall /> 요소에 mountedRef 속성을 사용해 맵(map) 데이터로 수집합니다.
 // - [ ] 사용자가 버튼을 누르면 스태거 애니메이션이 적용되도록 구현합니다.
 // --------------------------------------------------------------------------
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import SoccorBall from './components/SoccorBall';
 import S from './style.module.css';
-
+import { animate, stagger } from 'motion';
 function MotionOneStagger() {
-  const [balls] = useState(Array(4).fill(null));
+  const [balls] = useState(Array(6).fill(null));
 
-  const handleAnimateBalls = () => {};
+  // const handleAnimateBallsUsingTestId = () => {
+  //   const balls = Array.from(
+  //     document.querySelectorAll('[data-id="SoccorBall"]')
+  //   );
+
+  //   console.log(balls);
+
+  //   if (balls.length > 0) {
+  //     animate(
+  //       balls,
+  //       { x: [0, 400, 0], rotate: [0, 360 * 4, 0] },
+  //       { duration: 2, delay: stagger(0.05) }
+  //     );
+  //   }
+  // };
+  // const soccorBallsRef = useRef([]);
+  const soccorBallsRef = useRef(null);
+
+  const handleAnimateBalls = () => {
+    // Map 활용 예시 코드 (공식 문서에서 기술하는 방법)
+    const map = getMap();
+    const mapArray = Array.from(map.values());
+    if (mapArray.length > 0) {
+      animate(
+        mapArray,
+        { x: [0, 400, 0], rotate: [0, 360 * 4, 0] },
+        { duration: 2, delay: stagger(0.05) }
+      );
+    }
+
+    // // array 활용 예시 코드
+    // const soccorBalls = Array.from(new Set(soccorBallsRef.current));
+    // // set을 사용해서 중복이 없도록 만듦
+    // if (soccorBalls.length > 0) {
+    //   animate(
+    //     soccorBalls,
+    //     { x: [0, 400, 0], rotate: [0, 360 * 4, 0] },
+    //     { duration: 2, delay: stagger(0.05) }
+    //   );
+    // }
+  };
+
+  const getMap = () => {
+    if (!soccorBallsRef.current) {
+      soccorBallsRef.current = new Map();
+    }
+    return soccorBallsRef.current;
+  };
+
+  const mountedCallback = (index, el) => {
+    // 맵 활용
+    const map = getMap();
+    if (el) {
+      map.set(index, el);
+    } else {
+      map.delete(index);
+    }
+
+    // Array 활용
+    // const soccorBalls = soccorBallsRef.current;
+    // soccorBalls.push(soccorBallElement);
+  };
 
   return (
     <main className={S.component}>
@@ -51,7 +112,9 @@ function MotionOneStagger() {
 
       <div className={S.balls}>
         {balls.map((color, index) => {
-          return <SoccorBall moundedRef={null} key={index} />;
+          return (
+            <SoccorBall ref={mountedCallback.bind(null, index)} key={index} />
+          );
         })}
       </div>
     </main>

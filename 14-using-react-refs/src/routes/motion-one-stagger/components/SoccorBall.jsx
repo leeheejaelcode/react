@@ -1,21 +1,13 @@
-import { func, number, string } from 'prop-types';
 import S from './SoccorBall.module.css';
+import { forwardRef } from 'react';
 
-SoccorBall.propTypes = {
-  size: number,
-  color: string,
-  moundedRef: func,
-};
-
-function SoccorBall({
-  size = 40,
-  color = '#450fbf',
-  moundedRef,
-  ...restProps
-}) {
+function SoccorBall(
+  { size = 40, color = '#450fbf', ...restProps },
+  mountedRef
+) {
   return (
     <svg
-      ref={moundedRef}
+      ref={mountedRef}
       className={S.component}
       viewBox="-105 -105 210 210"
       width={size}
@@ -63,4 +55,4 @@ function SoccorBall({
   );
 }
 
-export default SoccorBall;
+export default forwardRef(SoccorBall);
