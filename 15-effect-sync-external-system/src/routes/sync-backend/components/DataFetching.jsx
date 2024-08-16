@@ -25,16 +25,21 @@ const ENDPOINT =
   'https://yamoo9.pockethost.io/api/collections/olive_oil/records';
 
 function DataFetching() {
+  const [state, setState] = useState({
+    isLoading: false,
+    error: null,
+    data: null,
+  });
   // 서버에 요청해서 데이터를 가져올 때
   // 클라이언트 환경에 리액트를 사용해 고려해야할 상태는 무엇 무엇을 선언해야 할까요?
 
   // [상태 선언] -----------------------------------------------------------
   // 로딩 중인지 여부
-  const [isLoading, setIsLoading] = useState(false);
-  // 오류가 발생했나요? 여부
-  const [error, setError] = useState(null);
-  // 응답이 성공한 경우, 앱에 설정할 데이터 선택
-  const [data, setData] = useState(null);
+  // const [isLoading, setIsLoading] = useState(false);
+  // // 오류가 발생했나요? 여부
+  // const [error, setError] = useState(null);
+  // // 응답이 성공한 경우, 앱에 설정할 데이터 선택
+  // const [data, setData] = useState(null);
 
   // [백앤드 환경과 동기화]
   // promise 방법
@@ -72,8 +77,10 @@ function DataFetching() {
     // let ignore = false;
 
     const abortController = new AbortController();
-
-    setIsLoading(true);
+    setState((prevState) => ({
+      ...prevState,
+      isLoading: true,
+    }));
     const fetchOliveOli = async () => {
       try {
         const response = await fetch(ENDPOINT, {
@@ -87,15 +94,22 @@ function DataFetching() {
           // }
         }
 
-        setData(responseData);
+        setState((prevState) => ({
+          ...prevState,
+          isLoading: true,
+        }));
       } catch (error) {
         // 중복된 요청 취소를 오류로 보지 않음
         // 그 이외의 오류가 발생한 경우 오류로 봄
         if (!(error instanceof DOMException)) {
-          setError(error);
+          setState((prevState) => ({
+            ...prevState,
+            error,
+            isLoading: false,
+          }));
         }
       }
-      setIsLoading(false);
+      // setState({ ...state, isLoading: false });
     };
 
     fetchOliveOli();
@@ -111,14 +125,11 @@ function DataFetching() {
   // 조건부 렌더링
 
   // 로딩중인가?
-  if (isLoading) {
+  if (state.isLoading) {
     return <Loading />;
   }
-  if (error) {
-    return <Error error={error} />;
-  }
-  if (data) {
-    console.log(data.items);
+  if (state.error) {
+    return <Error error={state.error} />;
   }
 
   // 오류가 발생했는가?
@@ -126,7 +137,7 @@ function DataFetching() {
   return (
     <div className={S.component}>
       <ul>
-        {data?.items.map((item) => {
+        {state.data?.items.map((item) => {
           return <li key={item.id}>{item.name}</li>;
         })}
       </ul>
@@ -145,10 +156,10 @@ Error.propTypes = {
     message: string.isRequired,
   }).isRequired,
 };
-function Error({ error }) {
+function Error({ state }) {
   return (
     <p role="alert">
-      오류 발생! <span style={{ color: 'red' }}>{error.message}</span>
+      오류 발생! <span style={{ color: 'red' }}>{state.error}</span>
     </p>
   );
 }
