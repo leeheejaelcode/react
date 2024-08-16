@@ -17,20 +17,46 @@
 // --------------------------------------------------------------------------
 
 import S from './DataFetching.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // eslint-disable-next-line no-unused-vars
-const ENDPOINT = '//yamoo9.pockethost.io/api/collections/olive_oil/records';
+const ENDPOINT =
+  'https://yamoo9.pockethost.io/api/collections/olive_oil/records';
 
 function DataFetching() {
   // 서버에 요청해서 데이터를 가져올 때
   // 클라이언트 환경에 리액트를 사용해 고려해야할 상태는 무엇 무엇을 선언해야 할까요?
+
+  // [상태 선언] -----------------------------------------------------------
   // 로딩 중인지 여부
-  const [isLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // 오류가 발생했나요? 여부
-  const [error] = useState(null);
+  const [error, setError] = useState(null);
   // 응답이 성공한 경우, 앱에 설정할 데이터 선택
-  const [data] = useState(null);
+  const [data, setData] = useState(null);
+
+  // [백앤드 환경과 동기화]
+  useEffect(() => {
+    // 백엔드 환경에 요청 및 응답 처리
+    setIsLoading(true);
+    // 백엔드 환경에 요청 및 응답 처리
+    fetch(ENDPOINT)
+      .then((response) => {
+        return response.json();
+      })
+      .then((responsesData) => {
+        if ('code' in responsesData && 'message' in responsesData) {
+          throw new Error(responsesData.message);
+        }
+        setData(responsesData);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsLoading(false);
+      });
+    return () => {};
+  }, []);
 
   // 조건부 렌더링
 
@@ -39,10 +65,14 @@ function DataFetching() {
     return <p>데이터 로딩 중입니다.</p>;
   }
   if (error) {
-    return <p role="alert">{error.message}</p>;
+    return (
+      <p role="alert">
+        오류 발생! <span style={{ color: 'red' }}>{error.message}</span>
+      </p>
+    );
   }
   if (data) {
-    console.log(data.items.length);
+    console.log(data.items);
   }
 
   // 오류가 발생했는가?
