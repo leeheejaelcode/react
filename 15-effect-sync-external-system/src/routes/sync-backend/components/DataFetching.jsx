@@ -17,11 +17,36 @@
 // --------------------------------------------------------------------------
 
 import S from './DataFetching.module.css';
+import { useState } from 'react';
 
 // eslint-disable-next-line no-unused-vars
 const ENDPOINT = '//yamoo9.pockethost.io/api/collections/olive_oil/records';
 
 function DataFetching() {
+  // 서버에 요청해서 데이터를 가져올 때
+  // 클라이언트 환경에 리액트를 사용해 고려해야할 상태는 무엇 무엇을 선언해야 할까요?
+  // 로딩 중인지 여부
+  const [isLoading] = useState(false);
+  // 오류가 발생했나요? 여부
+  const [error] = useState(null);
+  // 응답이 성공한 경우, 앱에 설정할 데이터 선택
+  const [data] = useState(null);
+
+  // 조건부 렌더링
+
+  // 로딩중인가?
+  if (isLoading) {
+    return <p>데이터 로딩 중입니다.</p>;
+  }
+  if (error) {
+    return <p role="alert">{error.message}</p>;
+  }
+  if (data) {
+    console.log(data.items.length);
+  }
+
+  // 오류가 발생했는가?
+  // 데이터가 존재하는가?
   return (
     <div className={S.component}>
       <p>서버에 데이터 가져오기 요청 후, 앱 화면 업데이트</p>
