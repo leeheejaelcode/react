@@ -19,6 +19,7 @@
 import S from './DataFetching.module.css';
 import { useState, useEffect } from 'react';
 import { string, exact } from 'prop-types';
+import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
 const ENDPOINT =
@@ -83,25 +84,19 @@ function DataFetching() {
     }));
     const fetchOliveOli = async () => {
       try {
-        const response = await fetch(ENDPOINT, {
+        const response = await axios.get(ENDPOINT, {
           signal: abortController.signal,
         });
-        const responseData = await response.json();
-
-        if (!response.ok) {
-          // if (!ignore) {
-          throw new Error(responseData.message);
-          // }
-        }
 
         setState((prevState) => ({
           ...prevState,
+          data: response.data,
           isLoading: true,
         }));
       } catch (error) {
         // 중복된 요청 취소를 오류로 보지 않음
         // 그 이외의 오류가 발생한 경우 오류로 봄
-        if (!(error instanceof DOMException)) {
+        if (error.name !== 'CanceledError') {
           setState((prevState) => ({
             ...prevState,
             error,
@@ -109,7 +104,6 @@ function DataFetching() {
           }));
         }
       }
-      // setState({ ...state, isLoading: false });
     };
 
     fetchOliveOli();
