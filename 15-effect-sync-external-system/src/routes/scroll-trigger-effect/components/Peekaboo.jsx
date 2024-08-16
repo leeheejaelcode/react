@@ -10,18 +10,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, spring } from 'motion';
 import S from './Peekaboo.module.css';
+import { getRandomMinMax } from '@/utils';
 
 function Peekaboo() {
   const [sections] = useState(Array(9).fill(null));
 
-  const [peekaboo] = useState(false);
+  const [peekaboo] = useState(true);
 
   const [randomIndex] = useState(() => {
     const min = 4;
     const max = sections.length;
-    const randomIndex = Math.round(Math.random() * (max - min) + min);
+    const randomIndex = getRandomMinMax(min, max);
     console.log(randomIndex);
-    return 1;
+    return randomIndex;
   });
 
   const peekabooRef = useRef(null);

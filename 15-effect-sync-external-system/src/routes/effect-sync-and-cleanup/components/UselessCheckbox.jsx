@@ -18,7 +18,6 @@ function UselessCheckbox() {
     if (!checked) {
       const id = setTimeout(() => {
         setChecked(true);
-        console.log('쓰잘다꾸없는');
       }, 1000);
       return () => clearTimeout(id);
     }
