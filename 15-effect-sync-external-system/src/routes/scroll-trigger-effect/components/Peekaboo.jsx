@@ -15,10 +15,10 @@ import { getRandomMinMax } from '@/utils';
 function Peekaboo() {
   const [sections] = useState(Array(9).fill(null));
 
-  const [peekaboo] = useState(true);
+  const [peekaboo, setPeekaboo] = useState(true);
 
   const [randomIndex] = useState(() => {
-    const min = 4;
+    const min = 1;
     const max = sections.length;
     const randomIndex = getRandomMinMax(min, max);
     return randomIndex;
@@ -60,8 +60,10 @@ function Peekaboo() {
       const entry = entries[0];
       if (entry.isIntersecting) {
         console.log('뷰포트 안에 보인다');
+        setPeekaboo(true);
       } else {
         console.log('뷰포트 안에 안보인다');
+        setPeekaboo(false);
       }
     });
 
