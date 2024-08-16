@@ -63,18 +63,28 @@ function DataFetching() {
   // async / await 방법
 
   useEffect(() => {
+    // 지역 변수 설정
+    // 무시할 것인가?
+    let ignore = false;
+
     setIsLoading(true);
     const fetchOliveOli = async () => {
-      const response = await fetch(ENDPOINT + '/dd');
+      const response = await fetch(ENDPOINT);
       const responseData = await response.json();
+
       if (!response.ok) {
-        setError(responseData);
+        if (!ignore) {
+          setError(responseData);
+        }
       } else {
         setData(responseData);
       }
       setIsLoading(false);
     };
     fetchOliveOli();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   // 조건부 렌더링
@@ -94,7 +104,11 @@ function DataFetching() {
   // 데이터가 존재하는가?
   return (
     <div className={S.component}>
-      <p>서버에 데이터 가져오기 요청 후, 앱 화면 업데이트</p>
+      <ul>
+        {data?.items.map((item) => {
+          return <li key={item.id}>{item.name}</li>;
+        })}
+      </ul>
     </div>
   );
 }
