@@ -21,7 +21,6 @@ function Peekaboo() {
     const min = 4;
     const max = sections.length;
     const randomIndex = getRandomMinMax(min, max);
-    console.log(randomIndex);
     return randomIndex;
   });
 
@@ -51,6 +50,51 @@ function Peekaboo() {
     }
   }, [peekaboo]);
 
+  // 스크롤 트리어 이펙트
+  useEffect(() => {
+    const targetIndex = randomIndex - 1;
+    const targetSectionElements = Array.from(sectionsRef.current.values());
+    const targetSectionElement = targetSectionElements.at(targetIndex);
+    // 인터섹션 옵저버 객체 생성
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        console.log('뷰포트 안에 보인다');
+      } else {
+        console.log('뷰포트 안에 안보인다');
+      }
+    });
+
+    // 관찰한 대상
+    // 뷰포트 안에 관찰 대상이 진입했는 지, 진출했는 지 감지
+    intersectionObserver.observe(targetSectionElement);
+    return () => {
+      intersectionObserver.unobserve(targetSectionElement);
+    };
+  }, [randomIndex]);
+
+  // ref 참조 {current : 섹션 집합 수집}
+  // 1. map
+  // 2. Array
+
+  const sectionsRef = useRef(null);
+
+  const getSectionMap = () => {
+    if (!sectionsRef.current) {
+      sectionsRef.current = new Map();
+    }
+    return sectionsRef.current;
+  };
+
+  const collectSections = (key, sectionElement) => {
+    const sectionMap = getSectionMap();
+    if (sectionElement) {
+      sectionMap.set(key, sectionElement);
+    } else {
+      sectionMap.delete(key);
+    }
+  };
+
   return (
     <div className={S.component}>
       {sections.map((section, index) => {
@@ -58,7 +102,12 @@ function Peekaboo() {
         const styles = { backgroundColor: `var(--purple-${idx}00)` };
 
         return (
-          <section key={index} className={S.section} style={styles}>
+          <section
+            key={index}
+            ref={collectSections.bind(null, index)}
+            className={S.section}
+            style={styles}
+          >
             {idx}
             {renderPeekaboo(idx)}
           </section>
