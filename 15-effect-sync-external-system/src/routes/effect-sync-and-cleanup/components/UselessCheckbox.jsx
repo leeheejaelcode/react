@@ -5,14 +5,24 @@
 // - [ ] 컴포넌트가 언마운트 된 이,후 남은 이펙트를 깨끗하게 정리합니다.
 // --------------------------------------------------------------------------
 
-import { useId, useState } from 'react';
+import { useId, useState, useEffect } from 'react';
 import S from './UselessCheckbox.module.css';
 
 function UselessCheckbox() {
   const id = useId();
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
 
   const handleChecked = () => setChecked((c) => !c);
+
+  useEffect(() => {
+    if (!checked) {
+      const id = setTimeout(() => {
+        setChecked(true);
+        console.log('쓰잘다꾸없는');
+      }, 1000);
+      return () => clearTimeout(id);
+    }
+  }, [checked]);
 
   return (
     <div className={S.component}>
