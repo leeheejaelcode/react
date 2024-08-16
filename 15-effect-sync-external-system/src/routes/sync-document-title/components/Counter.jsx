@@ -92,13 +92,14 @@ function Counter() {
 
   // 이벤트로 저장
   const handleSaveToStorage = () => {
+    document.title = `(${count})` + DOCUMENT_TITLE;
     setStorageData(COUNT_STEP, state, 'session');
   };
 
-  useEffect(() => {
-    document.title = `(${count})` + DOCUMENT_TITLE;
-    console.log(`step이 ${step}로 변경됐어요~`);
-  }, [count, step]);
+  // useEffect(() => {
+  //   document.title = `(${count})` + DOCUMENT_TITLE;
+  //   console.log(`step이 ${step}로 변경됐어요~`);
+  // }, [count, step]);
 
   const handleDecrease = () => {
     let nextCount = count - step;

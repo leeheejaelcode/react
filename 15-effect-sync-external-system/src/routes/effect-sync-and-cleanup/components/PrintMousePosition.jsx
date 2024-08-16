@@ -5,13 +5,24 @@
 // - [ ] 컴포넌트가 언마운트 된 이후 남은 이펙트를 깨끗하게 정리합니다.
 // --------------------------------------------------------------------------
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import S from './PrintMousePosition.module.css';
 
 function PrintMousePosition() {
-  const [mousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const { x, y } = mousePosition;
+
+  useEffect(() => {
+    const container = document.querySelector(`.${S.component}`);
+    const handleMove = ({ pageX: x, pageY: y }) => {
+      setMousePosition({ x, y });
+    };
+    container.addEventListener('mousemove', handleMove);
+    return () => {
+      container.removeEventListener('mousemove', handleMove);
+    };
+  }, [x, y]);
 
   return (
     <div className={S.component}>
