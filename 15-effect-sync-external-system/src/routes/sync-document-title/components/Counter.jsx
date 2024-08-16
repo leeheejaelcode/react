@@ -7,9 +7,24 @@
 
 import { useId, useState, useEffect } from 'react';
 import S from './Counter.module.css';
+import { getStorageData, setStorageData } from '@/utils';
+
 // 컴포넌트 jsx가 실제 DOM 엘리먼트로 마운트 되었나?
 
+// 스토리지 저장할 키
+// - @counter/count
+// - @counter/step
+// [이펙트 문서 제목 웹 스토리지 동기화]
+
 const DOCUMENT_TITLE = document.title;
+const COUNT_STEP = 'count_step';
+const INITIAL = {
+  count: 10,
+  step: 1,
+};
+
+// const COUNT = "COUNT"
+// const STEP = "STEP"
 
 function Counter() {
   // useEffect (effectCallback,[dependencies])이펙트
@@ -50,12 +65,28 @@ function Counter() {
   // }, [step]);
 
   // 반응성 데이터인 상태를 객체로 관리
-  const [state, setState] = useState({
-    count: 0,
-    step: 1,
-  });
-
+  // 객체로 관리
+  const [state, setState] = useState(() => getStorageData(COUNT_STEP, INITIAL));
   const { count, step } = state;
+
+  useEffect(() => {
+    setStorageData(COUNT_STEP, state);
+  }, [state]);
+  // 객체로 관리
+
+  // 따로 관리
+  // const [count, setCount] = useState(() => getStorageData(COUNT, INITIAL.count));
+  // const [step, setStep] = useState(() => getStorageData(STEP, INITIAL.step));
+
+  // useEffect(() => {
+  //   document.title = `(${count})` + DOCUMENT_TITLE;
+  //   setStorageData(COUNT, INITIAL.count);
+  // }, [count]);
+
+  // useEffect(() => {
+  //   console.log(`step이 ${step}로 변경됐어요~`);
+  //   setStorageData(STEP, INITIAL.step);
+  // }, [step]);
 
   useEffect(() => {
     document.title = `(${count})` + DOCUMENT_TITLE;

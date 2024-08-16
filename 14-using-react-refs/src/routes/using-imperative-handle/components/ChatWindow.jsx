@@ -44,6 +44,7 @@ function ChatWindow({ messages, onAddMessage, $$ref }) {
   const handleSendMessage = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    console.log(formData);
     let newMessage = formData.get('message');
     newMessage = newMessage.trim();
 
@@ -66,7 +67,7 @@ function ChatWindow({ messages, onAddMessage, $$ref }) {
     // 타이머
     // setTimeout(() => {
     //   ol.scrollTo(0, ol.scrollHeight);
-    // });
+    // }, 400);
     // scrollDownList(ol);
   };
 
