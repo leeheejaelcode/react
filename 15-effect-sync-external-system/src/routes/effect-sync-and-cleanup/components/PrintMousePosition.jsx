@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import S from './PrintMousePosition.module.css';
-import { debounce, throttle } from '@/utils';
+// import { debounce, throttle } from '@/utils';
 
 function PrintMousePosition() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -19,8 +19,9 @@ function PrintMousePosition() {
     const handleMove = ({ pageX: x, pageY: y }) => {
       setMousePosition({ x, y });
     };
-    container.addEventListener('mousemove', throttle(handleMove, 200));
+    container.addEventListener('mousemove', handleMove);
     return () => {
+      // 클린업 함수는 줄여쓰지 않기
       container.removeEventListener('mousemove', handleMove);
     };
   }, [x, y]);
