@@ -66,7 +66,9 @@ function Counter() {
 
   // 반응성 데이터인 상태를 객체로 관리
   // 객체로 관리
-  const [state, setState] = useState(() => getStorageData(COUNT_STEP, INITIAL));
+  const [state, setState] = useState(() =>
+    getStorageData(COUNT_STEP, INITIAL, 'session')
+  );
   const { count, step } = state;
 
   // useEffect(() => {
@@ -90,7 +92,7 @@ function Counter() {
 
   // 이벤트로 저장
   const handleSaveToStorage = () => {
-    setStorageData(COUNT_STEP, state);
+    setStorageData(COUNT_STEP, state, 'session');
   };
 
   useEffect(() => {
