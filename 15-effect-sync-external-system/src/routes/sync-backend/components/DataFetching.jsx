@@ -18,6 +18,7 @@
 
 import S from './DataFetching.module.css';
 import { useState, useEffect } from 'react';
+import { string, exact } from 'prop-types';
 
 // eslint-disable-next-line no-unused-vars
 const ENDPOINT =
@@ -36,40 +37,54 @@ function DataFetching() {
   const [data, setData] = useState(null);
 
   // [백앤드 환경과 동기화]
+  // promise 방법
+  // useEffect(() => {
+  //   // 백엔드 환경에 요청 및 응답 처리
+  //   setIsLoading(true);
+  //   // 백엔드 환경에 요청 및 응답 처리
+  //   fetch(ENDPOINT)
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((responsesData) => {
+  //       if ('code' in responsesData && 'message' in responsesData) {
+  //         throw new Error(responsesData.message);
+  //       }
+  //       setData(responsesData);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setError(error);
+  //       setIsLoading(false);
+  //     });
+  //   return () => {};
+  // }, []);
+
+  // async / await 방법
+
   useEffect(() => {
-    // 백엔드 환경에 요청 및 응답 처리
     setIsLoading(true);
-    // 백엔드 환경에 요청 및 응답 처리
-    fetch(ENDPOINT)
-      .then((response) => {
-        return response.json();
-      })
-      .then((responsesData) => {
-        if ('code' in responsesData && 'message' in responsesData) {
-          throw new Error(responsesData.message);
-        }
-        setData(responsesData);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setIsLoading(false);
-      });
-    return () => {};
+    const fetchOliveOli = async () => {
+      const response = await fetch(ENDPOINT + '/dd');
+      const responseData = await response.json();
+      if (!response.ok) {
+        setError(responseData);
+      } else {
+        setData(responseData);
+      }
+      setIsLoading(false);
+    };
+    fetchOliveOli();
   }, []);
 
   // 조건부 렌더링
 
   // 로딩중인가?
   if (isLoading) {
-    return <p>데이터 로딩 중입니다.</p>;
+    return <Loading />;
   }
   if (error) {
-    return (
-      <p role="alert">
-        오류 발생! <span style={{ color: 'red' }}>{error.message}</span>
-      </p>
-    );
+    return <Error error={error} />;
   }
   if (data) {
     console.log(data.items);
@@ -85,3 +100,20 @@ function DataFetching() {
 }
 
 export default DataFetching;
+
+function Loading() {
+  return <p>데이터 로딩 중입니다.</p>;
+}
+
+Error.propTypes = {
+  error: exact({
+    message: string.isRequired,
+  }).isRequired,
+};
+function Error({ error }) {
+  return (
+    <p role="alert">
+      오류 발생! <span style={{ color: 'red' }}>{error.message}</span>
+    </p>
+  );
+}
