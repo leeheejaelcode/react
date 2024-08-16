@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import S from './PrintMousePosition.module.css';
+import { debounce, throttle } from '@/utils';
 
 function PrintMousePosition() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -18,7 +19,7 @@ function PrintMousePosition() {
     const handleMove = ({ pageX: x, pageY: y }) => {
       setMousePosition({ x, y });
     };
-    container.addEventListener('mousemove', handleMove);
+    container.addEventListener('mousemove', throttle(handleMove, 200));
     return () => {
       container.removeEventListener('mousemove', handleMove);
     };
