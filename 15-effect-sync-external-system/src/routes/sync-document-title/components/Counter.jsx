@@ -69,9 +69,9 @@ function Counter() {
   const [state, setState] = useState(() => getStorageData(COUNT_STEP, INITIAL));
   const { count, step } = state;
 
-  useEffect(() => {
-    setStorageData(COUNT_STEP, state);
-  }, [state]);
+  // useEffect(() => {
+  //   setStorageData(COUNT_STEP, state);
+  // }, [state]);
   // 객체로 관리
 
   // 따로 관리
@@ -87,6 +87,11 @@ function Counter() {
   //   console.log(`step이 ${step}로 변경됐어요~`);
   //   setStorageData(STEP, INITIAL.step);
   // }, [step]);
+
+  // 이벤트로 저장
+  const handleSaveToStorage = () => {
+    setStorageData(COUNT_STEP, state);
+  };
 
   useEffect(() => {
     document.title = `(${count})` + DOCUMENT_TITLE;
@@ -112,6 +117,11 @@ function Counter() {
   return (
     <>
       <div className={S.component}>
+        <div style={{ marginBlockEnd: 20 }}>
+          <button type="button" onClick={handleSaveToStorage}>
+            이벤트로 웹 스토리지 동기화
+          </button>
+        </div>
         <button
           type="button"
           aria-label="카운트 감소"
