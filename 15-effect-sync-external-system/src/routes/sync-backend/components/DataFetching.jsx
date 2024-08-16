@@ -62,29 +62,50 @@ function DataFetching() {
 
   // async / await 방법
 
+  // 마운트 -> 언마운트 -> 리마운트
+  // 중복된 네트워크 요청 중단
+  // 네트워크 요청 1회 성공시
+  // 상태 업데이트 1회 진행
   useEffect(() => {
     // 지역 변수 설정
     // 무시할 것인가?
-    let ignore = false;
+    // let ignore = false;
+
+    const abortController = new AbortController();
 
     setIsLoading(true);
     const fetchOliveOli = async () => {
-      const response = await fetch(ENDPOINT);
-      const responseData = await response.json();
+      try {
+        const response = await fetch(ENDPOINT, {
+          signal: abortController.signal,
+        });
+        const responseData = await response.json();
 
-      if (!response.ok) {
-        if (!ignore) {
-          setError(responseData);
+        if (!response.ok) {
+          // if (!ignore) {
+          throw new Error(responseData.message);
+          // }
         }
-      } else {
+
         setData(responseData);
+      } catch (error) {
+        // 중복된 요청 취소를 오류로 보지 않음
+        // 그 이외의 오류가 발생한 경우 오류로 봄
+        if (!(error instanceof DOMException)) {
+          setError(error);
+        }
       }
       setIsLoading(false);
     };
+
     fetchOliveOli();
     return () => {
-      ignore = true;
+      // ignore = true;
+      // AbortController 인스턴스의 abort() 메서드를 사용해 이전 요청을 중단
+      abortController.abort();
     };
+    // 무한 로딩되는걸 방지하기 위해서
+    // 빈 종속성 배열 추가
   }, []);
 
   // 조건부 렌더링
