@@ -8,9 +8,28 @@
 // --------------------------------------------------------------------------
 
 import S from './DataMutation.module.css';
-
+import { createNote } from '@/api/notes';
 function DataMutation() {
-  return <div className={S.component}></div>;
+  const handleCreate = async () => {
+    // 더미 생성할 노트
+    const newNote = {
+      title: '리액트 마지막 주차 학습',
+      description:
+        '리액트의 마지막 학습 주제는 리액트의 에코시스템에 대해 다뤄봅니다',
+    };
+
+    // 서버 요청
+    const responseData = await createNote(newNote);
+    console.log(responseData);
+  };
+
+  return (
+    <div className={S.component}>
+      <button type="button" onClick={handleCreate}>
+        노트 작성
+      </button>
+    </div>
+  );
 }
 
 export default DataMutation;
