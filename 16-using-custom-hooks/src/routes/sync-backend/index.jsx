@@ -1,14 +1,18 @@
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import DataFetching from './components/DataFetching';
 import DataMutation from './components/DataMutation';
+import useMousePosition from '@/hooks/useMousePosition';
 
 function SyncBackend() {
   useDocumentTitle('백엔드 환경과 동기화');
+  const { x, y } = useMousePosition();
 
   return (
     <main id="page">
       <h1 className="headline">백엔드 환경과 동기화</h1>
-
+      <output>
+        {x} / {y}
+      </output>
       <div className="description">
         <p>리액트는 클라이언트 앱이므로 백엔드 환경과 동기화가 필요합니다.</p>
         <p>
