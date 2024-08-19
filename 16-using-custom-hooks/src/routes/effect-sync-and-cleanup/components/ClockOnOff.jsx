@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { bool, func } from 'prop-types';
 import S from './ClockOnOff.module.css';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
+import useClock from '@/hooks/useClock';
 
 ClockOnOff.propTypes = {
   isOn: bool,
@@ -13,18 +13,22 @@ function ClockOnOff({ isOn = false, onToggle }) {
   useDocumentTitle(documentTitle);
 
   const buttonLabel = isOn ? 'OFF' : 'ON';
-  const [time, setTime] = useState(new Date());
+  // 타임 상태 선언
+  // const [time, setTime] = useState(new Date());
 
-  useEffect(() => {
-    const clearId = setInterval(() => {
-      const nextTime = new Date();
-      setTime(nextTime);
-    }, 1000);
+  // 타임 업데이트 이펙트
+  // useEffect(() => {
+  //   const clearId = setInterval(() => {
+  //     const nextTime = new Date();
+  //     setTime(nextTime);
+  //   }, 1000);
 
-    return () => {
-      clearInterval(clearId);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(clearId);
+  //   };
+  // }, []);
+
+  const time = useClock();
 
   return (
     <div className={S.component}>
