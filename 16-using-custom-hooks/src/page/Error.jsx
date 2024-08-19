@@ -2,7 +2,7 @@ import { useRouteError } from 'react-router-dom';
 import Footer from './layout/Footer';
 import Header from './layout/Header';
 
-function ErrorPage() {
+function Error() {
   const { status, statusText, error } = useRouteError();
 
   return (
@@ -19,4 +19,4 @@ function ErrorPage() {
   );
 }
 
-export default ErrorPage;
+export default Error;
