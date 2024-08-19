@@ -8,26 +8,64 @@
 // --------------------------------------------------------------------------
 
 import S from './DataMutation.module.css';
-import { createNote } from '@/api/notes';
+import { useRef } from 'react';
+import { createNote, readNotes, readNoteOne } from '@/api/notes';
 function DataMutation() {
+  const formRef = useRef();
+
   const handleCreate = async () => {
+    const formElement = formRef.current;
+    const formData = new FormData(formElement);
+    const title = formData.get('title');
+    const description = formData.get('description');
+
     // 더미 생성할 노트
     const newNote = {
-      title: '리액트 마지막 주차 학습',
-      description:
-        '리액트의 마지막 학습 주제는 리액트의 에코시스템에 대해 다뤄봅니다',
+      title,
+      description,
     };
 
     // 서버 요청
     const responseData = await createNote(newNote);
+    formElement.reset();
+  };
+  const handleReadNote = async () => {
+    const responseData = await readNotes();
     console.log(responseData);
   };
 
+  const handleReadNoteOne = async () => {
+    const responseData = await readNoteOne('qsqbe6gjz3kj23k');
+    console.log(responseData);
+  };
   return (
     <div className={S.component}>
-      <button type="button" onClick={handleCreate}>
-        노트 작성
-      </button>
+      <form ref={formRef}>
+        <div>
+          <label htmlFor="noteTitle">제목</label>
+          <input type="text" name="title" id="noteTitle" />
+        </div>
+        <div>
+          <label htmlFor="noteDescription">내용</label>
+          <textarea
+            name="description"
+            id="noteDescription"
+            cols={20}
+            rows={3}
+          ></textarea>
+        </div>
+      </form>
+      <div role="group" style={{ display: 'flex', gap: 0 }}>
+        <button type="button" onClick={handleCreate}>
+          노트 작성
+        </button>
+        <button type="button" onClick={handleReadNote}>
+          노트 읽기
+        </button>
+        <button type="button" onClick={handleReadNoteOne}>
+          노트 ID <code>qsqbe6gjz3kj23k</code>하나만 읽기
+        </button>
+      </div>
     </div>
   );
 }
