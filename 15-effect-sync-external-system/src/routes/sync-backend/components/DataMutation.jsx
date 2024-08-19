@@ -9,7 +9,13 @@
 
 import S from './DataMutation.module.css';
 import { useRef } from 'react';
-import { createNote, readNotes, readNoteOne } from '@/api/notes';
+import {
+  createNote,
+  readNotes,
+  readNoteOne,
+  updateNote,
+  deleteNote,
+} from '@/api/notes';
 function DataMutation() {
   const formRef = useRef();
 
@@ -38,6 +44,22 @@ function DataMutation() {
     const responseData = await readNoteOne('qsqbe6gjz3kj23k');
     console.log(responseData);
   };
+
+  const handleEditNote = async () => {
+    const editNoteId = 'qsqbe6gjz3kj23k';
+    const editNote = {
+      id: editNoteId,
+      title: '오늘도 파이팅!',
+      // description: '왜이렇게 피곤하고 머리가 아프고 힘이 안나냐',
+    };
+    const responseData = await updateNote(editNote);
+    console.log(responseData);
+  };
+
+  const handleDeleteNote = async () => {
+    const responseData = await deleteNote('qsqbe6gjz3kj23k');
+    alert('노트 삭제 성공');
+  };
   return (
     <div className={S.component}>
       <form ref={formRef}>
@@ -55,7 +77,15 @@ function DataMutation() {
           ></textarea>
         </div>
       </form>
-      <div role="group" style={{ display: 'flex', gap: 0 }}>
+      <div
+        role="group"
+        style={{
+          display: 'flex',
+          gap: '8px',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+      >
         <button type="button" onClick={handleCreate}>
           노트 작성
         </button>
@@ -63,11 +93,17 @@ function DataMutation() {
           노트 읽기
         </button>
         <button type="button" onClick={handleReadNoteOne}>
-          노트 ID <code>qsqbe6gjz3kj23k</code>하나만 읽기
+          노트 ID 하나만 읽기
+        </button>
+        <button type="button" onClick={handleEditNote}>
+          노트 데이터 수정하기
+        </button>
+        <button type="button" onClick={handleDeleteNote}>
+          노트 데이터 삭제하기
         </button>
       </div>
     </div>
   );
 }
-
+// <code>qsqbe6gjz3kj23k</code>
 export default DataMutation;
