@@ -10,11 +10,7 @@
 import S from './DataMutation.module.css';
 
 function DataMutation() {
-  return (
-    <div className={S.component}>
-      <p>서버에 데이터 생성/수정/삭제 요청한 후, 앱 화면 업데이트</p>
-    </div>
-  );
+  return <div className={S.component}></div>;
 }
 
 export default DataMutation;

@@ -1,115 +1,95 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useImmer } from 'use-immer';
-import axios from 'axios';
-import { string, exact } from 'prop-types';
+import { exact, string } from 'prop-types';
 import S from './DataFetching.module.css';
 
-// eslint-disable-next-line no-unused-vars
-const ENDPOINT =
-  'https://yamoo9.pockethost.io/api/collections/olive_oil/records';
+const ENDPOINT = '//yamoo9.pockethost.io/api/collections/olive_oil/records';
 
 function DataFetching() {
   const [state, setState] = useImmer({
-    keyPoint: '상태가 복잡해지면 관리도 덩달아 어려워진다',
-    stateData: {
-      one: {
-        isLoading: false,
-        error: null,
-        data: null,
-      },
-    },
-    two: {
-      three: {
-        four: {
-          five: 'depp state object',
-        },
-      },
-    },
+    isLoading: false,
+    error: null,
+    data: null,
   });
+
   useEffect(() => {
-    // useImmer 관리 코드
-    setState((draft) => {
-      draft.stateData.one.isLoading = 'true';
-    });
     const abortController = new AbortController();
-    // useState 관리 코드
-    // setState((prevState) => ({
-    //   ...prevState,
-    //   isLoading: true,
-    // }));
-    const fetchOliveOli = async () => {
+
+    setState((draft) => {
+      draft.isLoading = true;
+    });
+
+    const fetchOliveOil = async () => {
       try {
-        const response = await axios.get(ENDPOINT, {
+        const response = await fetch(ENDPOINT, {
           signal: abortController.signal,
         });
-        // useImmer 관리 코드
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
         setState((draft) => {
-          draft.stateData.one.isLoading = false;
-          draft.stateData.one.data = response.data;
+          draft.data = responseData;
+          draft.isLoading = false;
         });
-        // useState 관리 코드
-        // setState((prevState) => ({
-        //   ...prevState,
-        //   data: response.data,
-        //   isLoading: true,
-        // }));
       } catch (error) {
-        if (error.name !== 'CanceledError') {
-          // useImmer 관리 코드
+        if (!(error instanceof DOMException)) {
           setState((draft) => {
-            draft.stateData.one.isLoading = false;
-            draft.stateData.one.error = error;
+            draft.error = error;
+            draft.isLoading = false;
           });
-          // useState 관리 코드
-          // setState((prevState) => ({
-          //   ...prevState,
-          //   error,
-          //   isLoading: false,
-          // }));
         }
       }
     };
 
-    fetchOliveOli();
+    fetchOliveOil();
+
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [setState]);
 
-  if (state.stateData.one.isLoading) {
-    return <Loading />;
+  if (state.isLoading) {
+    return <LoadingMessage />;
   }
-  if (state.stateData.one.error) {
-    return <Error error={state.stateData.one.error} />;
+
+  if (state.error) {
+    return <PrintError error={state.error} />;
   }
 
   return (
     <div className={S.component}>
       <ul>
-        {state.stateData.one.data?.items.map((item) => {
-          return <li key={item.id}>{item.name}</li>;
-        })}
+        {state.data?.items.map?.((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
       </ul>
     </div>
   );
 }
 
-export default DataFetching;
+/* -------------------------------------------------------------------------- */
 
-function Loading() {
-  return <p>데이터 로딩 중입니다.</p>;
+function LoadingMessage() {
+  return <p>데이터 로딩 중...</p>;
 }
 
-Error.propTypes = {
+PrintError.propTypes = {
   error: exact({
     message: string.isRequired,
   }).isRequired,
 };
-function Error({ state }) {
+
+function PrintError({ error }) {
   return (
     <p role="alert">
       오류 발생!{' '}
-      <span style={{ color: 'red' }}>{state.stateData.one.error}</span>
+      <span style={{ fontWeight: 500, color: 'red' }}>{error.message}</span>
     </p>
   );
 }
+
+export default DataFetching;
