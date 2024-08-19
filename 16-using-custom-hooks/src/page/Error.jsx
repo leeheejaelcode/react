@@ -1,17 +1,20 @@
-import { useRouteError, Link } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
+import Footer from './layout/Footer';
+import Header from './layout/Header';
 
 function ErrorPage() {
   const { status, statusText, error } = useRouteError();
 
   return (
     <>
-      <h1>
-        {status} {statusText}
-      </h1>
-      <p>{error.message}</p>
-      <p>
-        <Link to="/">홈</Link>으로 이동하세요
-      </p>
+      <Header />
+      <main role="alert">
+        <h1>
+          {status} {statusText} 오류 발생
+        </h1>
+        <p>{error.message}</p>
+      </main>
+      <Footer />
     </>
   );
 }
