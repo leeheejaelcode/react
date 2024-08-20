@@ -18,14 +18,12 @@ import CheckOnOffline from './check-on-offline';
 import PrintMousePosition from './effect-sync-and-cleanup/components/PrintMousePosition';
 import ClockOnOffWrapper from './effect-sync-and-cleanup/components/ClockOnOffWrapper';
 import UselessCheckbox from './effect-sync-and-cleanup/components/UselessCheckbox';
+import { createRoutesFromElements } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 // 루트(경로 집합)
 
-// [중첩된 루트 설정]
-// /effect-sync-and-cleanup                   : index - 마우스 위치 추적
-// /effect-sync-and-cleanup/clock             : clock - 시계 ON/OFF
-// /effect-sync-and-cleanup/useless-checkbox  : useless-checkbox - 쓸모없는 체크박스
-const routes = [
+const __routes = [
   {
     path: '/',
     element: <RootLayout />,
@@ -56,6 +54,26 @@ const routes = [
     ],
   },
 ];
+
+// [중첩된 루트 설정]
+// /effect-sync-and-cleanup                   : index - 마우스 위치 추적
+// /effect-sync-and-cleanup/clock             : clock - 시계 ON/OFF
+// /effect-sync-and-cleanup/useless-checkbox  : useless-checkbox - 쓸모없는 체크박스
+
+const routes = createRoutesFromElements(
+  <Route path="/" element={<RootLayout />}>
+    <Route index element={<SyncDocumentTitle />} />
+    <Route path="sync-web-storage" element={<SyncWebStorage />} />
+    <Route path="effect-sync-and-cleanup" element={<EffectSyncAndCleanup />}>
+      <Route index element={<PrintMousePosition />} />
+      <Route path="clock" element={<ClockOnOffWrapper />} />
+      <Route path="useless-checkbox" element={<UselessCheckbox />} />
+    </Route>
+    <Route path="scroll-trigger-effect" element={<ScrollTriggerEffect />} />
+    <Route path="sync-backend" element={<SyncBackend />} />
+    <Route path="check-on-offline" element={<CheckOnOffline />} />
+  </Route>
+);
 
 // 라우터
 const router = createBrowserRouter(routes);
