@@ -23,6 +23,7 @@ import { Route } from 'react-router-dom';
 
 import ClockOnOff from './effect-sync-and-cleanup/components/ClockOnOff';
 import DataFetchingUsingUseFetchHook from './data-fetch-using-use-fetch-hook';
+import CounterAPP from './counter-app-use-counter';
 
 // 루트(경로 집합)
 
@@ -76,6 +77,7 @@ const routes = createRoutesFromElements(
     <Route path="sync-backend" element={<SyncBackend />} />
     <Route path="check-on-offline" element={<CheckOnOffline />} />
     <Route path="data-fetching" element={<DataFetchingUsingUseFetchHook />} />
+    <Route path="counter-app" element={<CounterAPP />} />
   </Route>
 );
 
