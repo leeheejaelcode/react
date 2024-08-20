@@ -21,6 +21,8 @@ import UselessCheckbox from './effect-sync-and-cleanup/components/UselessCheckbo
 import { createRoutesFromElements } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 
+import ClockOnOff from './effect-sync-and-cleanup/components/ClockOnOff';
+
 // 루트(경로 집합)
 
 const __routes = [
@@ -66,7 +68,7 @@ const routes = createRoutesFromElements(
     <Route path="sync-web-storage" element={<SyncWebStorage />} />
     <Route path="effect-sync-and-cleanup" element={<EffectSyncAndCleanup />}>
       <Route index element={<PrintMousePosition />} />
-      <Route path="clock" element={<ClockOnOffWrapper />} />
+      <Route path="clock" element={<ClockOnOff />} />
       <Route path="useless-checkbox" element={<UselessCheckbox />} />
     </Route>
     <Route path="scroll-trigger-effect" element={<ScrollTriggerEffect />} />
