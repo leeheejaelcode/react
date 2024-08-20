@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { animate, spring } from 'motion';
 import { getRandomMinMax } from '@/utils';
 import S from './Peekaboo.module.css';
+import useInView from '@/hooks/useInView';
 
 function Peekaboo() {
   const [sections] = useState(Array(9).fill(null));
@@ -83,8 +84,10 @@ function Peekaboo() {
     }
   };
 
+  const { inView, targetRef, rootRef } = useInView(true);
+
   return (
-    <div className={S.component}>
+    <div ref={rootRef} className={S.component}>
       {sections.map((section, index) => {
         const idx = index + 1;
         const styles = { backgroundColor: `var(--purple-${idx}00)` };
@@ -101,8 +104,26 @@ function Peekaboo() {
           </section>
         );
       })}
+      <div
+        ref={targetRef}
+        style={inView ? { ...boxStyles, backgroundColor: 'blue' } : boxStyles}
+      >
+        HELLO
+      </div>
     </div>
   );
 }
+
+const boxStyles = {
+  backgroundColor: 'red',
+  width: 300,
+  height: 300,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: 32,
+  color: 'white',
+  fontWeight: 600,
+};
 
 export default Peekaboo;

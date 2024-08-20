@@ -1,5 +1,4 @@
 .component {
-
   --purple-100: #dacff2;
   --purple-200: #b59fe5;
   --purple-300: #8f6fd9;
@@ -12,6 +11,10 @@
   --purple-950: #5405ff;
 
   margin-block: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  block-size: 300px;
+  border: 0.5px solid var(--accent-color);
 
   .section {
     position: relative;
@@ -32,5 +35,4 @@
       font-size: 140px;
     }
   }
-
 }
