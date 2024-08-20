@@ -1,13 +1,15 @@
-import useOnline from '@/hooks/useOnline';
 import Switcher from '../sync-web-storage/components/Switcher';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import useStateWithCallback from '@/hooks/useStateWithCallback';
 import { useToggle } from '@/hooks/useToggle';
 function CheckOnOffline() {
   // const isOnline = useOnline();
 
   const [isToggle, setIsToggle] = useToggle(false, (nextIsToggle) => {
-    document.body.style.backgroundColor = nextIsToggle ? '#3f3f3f' : 'white';
+    document.body.style.cssText = `
+    background-color: ${nextIsToggle ? '#000' : '#fff'};
+    color: ${nextIsToggle ? '#fff' : '#000'};
+  `;
   });
 
   return (
