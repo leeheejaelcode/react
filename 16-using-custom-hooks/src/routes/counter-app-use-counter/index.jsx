@@ -1,11 +1,12 @@
 import S from './style.module.css';
 import useCounter from '@/hooks/useCounter';
+import useRenderCountLog from '@/hooks/useRenderCountLog';
 import { FaArrowAltCircleUp, FaArrowAltCircleDown } from 'react-icons/fa';
 export default function CounterAPP() {
   const counterState = useCounter({ count: 1, max: 10, step: 2 });
   const { count, step, isMinDisabled, isMaxDisabled, increment, decrement } =
     counterState;
-
+  useRenderCountLog('CounterApp', 'text-decoration: underline; color:green');
   return (
     <main className={S.component}>
       <h1 className="headline">카운터 앱</h1>
