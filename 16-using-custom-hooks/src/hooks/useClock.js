@@ -1,5 +1,4 @@
-import { useDebugValue } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useDebugValue } from 'react';
 
 export default function useClock() {
   const [time, setTime] = useState(new Date());
