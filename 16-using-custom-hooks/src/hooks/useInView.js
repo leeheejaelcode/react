@@ -1,6 +1,12 @@
+// inView 상태 -> 뷰포트 안에 관찰 대상이 들어왔는 지(참) / 들어오지 않았는 지(거짓) 반환
+// targetRef 참조 -> 문서에 존재하고 뷰포트 내부에 진입/진출 여부를 관찰할 문서 요소 참조
+// rootRef 참조 -> 문서에 존재하고 뷰포트로서 설정할 루트 요소 참조
+//
+// const { inView, targetRef, rootRef } = useInview()
+
 import { useLayoutEffect, useRef, useState } from 'react';
 
-/**@type { (printLog?:boolean) => {inView, targetRef, rootRef } } */
+/** @type{ (printLog?: boolean) => { inView, targetRef, rootRef } } */
 function useInView(printLog = false) {
   const [inView, setInView] = useState(false);
   const targetRef = useRef(null);
