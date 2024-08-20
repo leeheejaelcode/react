@@ -22,6 +22,7 @@ import { createRoutesFromElements } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 
 import ClockOnOff from './effect-sync-and-cleanup/components/ClockOnOff';
+import DataFetchingUsingUseFetchHook from './data-fetch-using-use-fetch-hook';
 
 // 루트(경로 집합)
 
@@ -74,6 +75,7 @@ const routes = createRoutesFromElements(
     <Route path="scroll-trigger-effect" element={<ScrollTriggerEffect />} />
     <Route path="sync-backend" element={<SyncBackend />} />
     <Route path="check-on-offline" element={<CheckOnOffline />} />
+    <Route path="data-fetching" element={<DataFetchingUsingUseFetchHook />} />
   </Route>
 );
 
