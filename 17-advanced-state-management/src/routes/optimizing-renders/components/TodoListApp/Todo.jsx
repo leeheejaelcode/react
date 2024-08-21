@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { func } from 'prop-types';
 import { TodoType } from './@types';
 import S from './style.module.css';
+import { memo } from 'react';
 
 Todo.propTypes = {
   todo: TodoType.isRequired,
@@ -31,4 +32,4 @@ function Todo({ todo, onChange }) {
   );
 }
 
-export default Todo;
+export default memo(Todo);

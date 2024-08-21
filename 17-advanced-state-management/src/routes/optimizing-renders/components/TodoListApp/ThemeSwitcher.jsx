@@ -4,6 +4,7 @@ import { func, string } from 'prop-types';
 import { visibilityType } from './@types';
 import { visibilities } from './@constants';
 import S from './style.module.css';
+import { memo } from 'react';
 
 ThemeSwitcher.propTypes = {
   visibility: visibilityType.isRequired,
@@ -78,4 +79,4 @@ function ThemeSwitcher({
   );
 }
 
-export default ThemeSwitcher;
+export default memo(ThemeSwitcher);

@@ -2,6 +2,7 @@ import { func } from 'prop-types';
 import S from './style.module.css';
 import { TodoListType } from './@types';
 import Todo from './Todo';
+import { memo } from 'react';
 
 TodoList.propTypes = {
   list: TodoListType.isRequired,
@@ -18,4 +19,4 @@ function TodoList({ list, onChangeTodo }) {
   );
 }
 
-export default TodoList;
+export default memo(TodoList);

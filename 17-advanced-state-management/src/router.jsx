@@ -35,7 +35,7 @@ const navigation = [
     path: '/signup-user',
     text: '사용자 회원가입',
     element: <SignUpUser />,
-    display: false,
+    // display: false,
   },
 ];
 

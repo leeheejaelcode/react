@@ -1,8 +1,15 @@
-import { GrFormDown, GrFormUp } from 'react-icons/gr';
+import { GrFormDown as Down, GrFormUp as Up } from 'react-icons/gr';
 import useCounter from '@/hooks/useCounter';
 import CountButton from './CountButton';
 import CountOutput from './CountDisplay';
 import S from './style.module.css';
+import { memo, useMemo } from 'react';
+
+// 컴포넌트 외부에서 기억?
+// React.memo(component)
+
+// const GrFormDown = memo(Down);
+// const GrFormUp = memo(Up);
 
 function Counter() {
   const C = useCounter({ min: -5, count: 3, step: 2 });
@@ -11,6 +18,11 @@ function Counter() {
   const increamentLabel = `${step} 증가`;
   const decreamentLabel = `${step} 감소`;
 
+  // 컴포넌트 내부에서 기억? (훅 함수 사용 가능)
+  // React.useMemo(()=> component, []);
+
+  const GrFormDown = useMemo(() => Down, []);
+  const GrFormUp = useMemo(() => Up, []);
   return (
     <div className={S.component}>
       <CountOutput count={count} />
@@ -36,4 +48,4 @@ function Counter() {
   );
 }
 
-export default Counter;
+export default memo(Counter);

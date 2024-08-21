@@ -1,8 +1,9 @@
 import { func, node } from 'prop-types';
 import S from './style.module.css';
+import { memo } from 'react';
 
 CountButton.propTypes = {
-  children: node.isRequired,
+  children: node,
   onUpdate: func,
 };
 
@@ -19,4 +20,4 @@ function CountButton({ children, onUpdate, ...restProps }) {
   );
 }
 
-export default CountButton;
+export default memo(CountButton);
