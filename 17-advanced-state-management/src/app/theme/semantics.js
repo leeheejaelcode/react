@@ -4,22 +4,22 @@ const { color } = primitives;
 
 export default {
   light: {
-    forground: color.slate[800],
+    forground: color.cringuetRose[800],
     background: color.white,
     accent: color.purple[500],
 
     GrandParent: {
-      background: color.slate[300],
+      background: color.cringuetRose[300],
       label: color.purple[600],
     },
 
     Parent: {
-      background: color.slate[200],
+      background: color.cringuetRose[200],
       label: color.purple[500],
     },
 
     Child: {
-      background: color.slate[100],
+      background: color.cringuetRose[100],
       label: color.purple[400],
     },
 
