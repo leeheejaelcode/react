@@ -6,11 +6,11 @@ Child.propTypes = {
   data: object,
 };
 
-function Child({ data }) {
+function Child() {
   return (
     <div className={S.box}>
       <strong className={S.label}>Child</strong>
-      <GrandChild data={data} />
+      <GrandChild />
     </div>
   );
 }

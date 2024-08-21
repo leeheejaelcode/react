@@ -6,11 +6,11 @@ Parent.propTypes = {
   data: object,
 };
 
-function Parent({ data }) {
+function Parent() {
   return (
     <div className={S.box}>
       <strong className={S.label}>Parent</strong>
-      <Child data={data} />
+      <Child />
     </div>
   );
 }
