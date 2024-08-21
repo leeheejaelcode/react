@@ -5,7 +5,9 @@ import { useMemo, useState } from 'react';
 import { throttle } from '@/utils';
 import { AppLink } from '@/components';
 // 컨텍스트 가져오기
-import { pageContext } from './context';
+
+// 페이지 컨텍스트 프로바이더 컴포넌트 불러오기
+import { PageProvider } from './context';
 
 function PropsDrillingSolution() {
   useDocumentTitle('프롭스 드릴링 이슈 해결책');
@@ -19,7 +21,7 @@ function PropsDrillingSolution() {
   return (
     // 컨텍스트 프로바이더를 통해 값 전달하기
     // value를 통해 전달
-    <pageContext.Provider value={data}>
+    <PageProvider value={data}>
       <main id="page" className={S.component}>
         <h1 className="headline">프롭스 드릴링 이슈 해결책</h1>
 
@@ -54,7 +56,7 @@ function PropsDrillingSolution() {
 
         <GrandParent />
       </main>
-    </pageContext.Provider>
+    </PageProvider>
   );
 }
 
