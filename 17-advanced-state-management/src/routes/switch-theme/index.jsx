@@ -10,12 +10,14 @@ function SwitchTheme() {
   useDocumentTitle('테마 스위치');
 
   const [isDarkMode, setIsDarkMode] = useToggle(false);
-  const { ToggleThemeMode } = useTheme();
+  // const { toggleMode } = useTheme();
+  const { toggleMode } = useTheme(({ toggleMode }) => toggleMode);
 
+  // 불필요한 리렌더링을 막기위해 callback 사용
   const handleToggleTheme = useCallback(() => {
-    setIsDarkMode((mode) => !mode);
-    ToggleThemeMode();
-  }, [setIsDarkMode, ToggleThemeMode]);
+    setIsDarkMode((isDarkMode) => !isDarkMode);
+    toggleMode();
+  }, [setIsDarkMode, toggleMode]);
 
   return (
     <main id="page" className={S.component}>

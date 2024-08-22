@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { animate, spring } from 'motion';
 import { bool, func, number } from 'prop-types';
 import S from './style.module.css';
+import { memo } from 'react';
 
 const springAnimation = spring({ stiffness: 500, damping: 40 });
 
@@ -53,4 +54,4 @@ function AppSwitch({ value = false, onToggle, ratio = 2, ...restProps }) {
   );
 }
 
-export default AppSwitch;
+export default memo(AppSwitch);
