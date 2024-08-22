@@ -1,12 +1,9 @@
-import { object } from 'prop-types';
 import S from './style.module.css';
 import Child from './Child';
+import { useTheme } from '@/contexts/theme';
 
-Parent.propTypes = {
-  theme: object,
-};
-
-function Parent({ theme }) {
+function Parent() {
+  const { theme } = useTheme();
   const {
     Parent: { background, label },
   } = theme;
@@ -25,7 +22,7 @@ function Parent({ theme }) {
       <strong className={S.label} style={labelStyles}>
         Parent
       </strong>
-      <Child theme={theme} />
+      <Child />
     </div>
   );
 }

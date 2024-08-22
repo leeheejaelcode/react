@@ -2,8 +2,13 @@ import primitives from './primitives';
 
 const { color } = primitives;
 
+export const THEME_MODE = {
+  LIGHT: 'light',
+  DARK: 'dark',
+};
+
 export default {
-  light: {
+  [THEME_MODE.LIGHT]: {
     forground: color.slate[800],
     background: color.white,
     accent: color.purple[500],
@@ -29,11 +34,11 @@ export default {
     },
 
     TodoListApp: {
-      themeColor: color.purple[400],
+      themeColor: color.teal[400],
       focusColor: color.yellow[400],
     },
   },
-  dark: {
+  [THEME_MODE.DARK]: {
     forground: color.white,
     background: color.slate[900],
     accent: color.yellow[500],
