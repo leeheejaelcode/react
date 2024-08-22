@@ -1,9 +1,19 @@
-import { createContext, useContext } from 'react';
+import { primitives, semantics } from '@/theme';
+import { createContext, useContext, useState, useMemo } from 'react';
 
 const themeContext = createContext();
 
 export function ThemeProvider(props) {
-  return <themeContext.Provider {...props} />;
+  const [mode] = useState('right');
+
+  const themeValue = useMemo(
+    () => ({
+      theme: semantics[mode],
+      color: primitives.color,
+    }),
+    [mode]
+  );
+  return <themeContext.Provider value={themeValue} {...props} />;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
