@@ -12,7 +12,6 @@ export const addItem = (newItem) => ({
   type: ADD,
   payload: newItem,
 });
-
 export const editItem = (editId, nextItem) => ({
   type: EDIT,
   payload: { editId, nextItem },
@@ -25,14 +24,13 @@ export const filterList = (filterKey) => ({
   type: FILTER,
   payload: { filterKey },
 });
-
 export const resetList = () => ({
   type: RESET,
 });
 
 const generateItem = () => crypto.randomUUID().split('-').at(0);
 
-export const INITIAL_LIST = Array(9)
+export const INITIAL_LIST = Array(5)
   .fill(null)
   .map(() => generateItem());
 

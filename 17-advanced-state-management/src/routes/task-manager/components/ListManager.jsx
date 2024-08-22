@@ -25,11 +25,10 @@ export function ListManager() {
   const handleDeleteItem = (deleteId) => () => {
     dispatch(deleteItem(deleteId));
   };
-
   // 필터링
   const handleFilterItems = () =>
     dispatch(filterList(Math.floor(Math.random() * 10)));
-
+  // 리셋
   const handleResetItems = () => dispatch(resetList());
   return (
     <div>
