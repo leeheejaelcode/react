@@ -1,4 +1,4 @@
-import { authReducer, signInAction, signOutAction } from '@/stores/auth';
+import authReducer, { signInAction, signOutAction } from '@/stores/auth';
 import { useReducer } from 'react';
 
 function AuthStatus() {

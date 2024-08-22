@@ -34,7 +34,7 @@ export default {
     },
 
     TodoListApp: {
-      themeColor: color.teal[400],
+      themeColor: color.purple[400],
       focusColor: color.yellow[400],
     },
   },

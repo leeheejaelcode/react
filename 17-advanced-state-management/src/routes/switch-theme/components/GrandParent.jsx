@@ -1,9 +1,10 @@
 import S from './style.module.css';
-import Parent from './Parent';
 import { useTheme } from '@/contexts/theme';
+import Parent from './Parent';
 
 function GrandParent() {
   const { theme } = useTheme();
+
   const {
     GrandParent: { background, label },
   } = theme;

@@ -12,7 +12,7 @@ export const signOutAction = () => ({
   type: ACTION_TYPE.SIGN_OUT,
 });
 
-export function authReducer(state, action) {
+export default function authReducer(state, action) {
   if (action.type === ACTION_TYPE.SIGN_IN) {
     return action.payload;
   }

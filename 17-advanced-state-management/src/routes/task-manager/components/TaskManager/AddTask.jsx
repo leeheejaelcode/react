@@ -1,7 +1,7 @@
 import { useId } from 'react';
-import { useTask } from './context';
+import { useTask } from './@context';
 
-export function AddTask() {
+function AddTask() {
   const id = useId();
 
   const {
@@ -37,3 +37,5 @@ export function AddTask() {
     </form>
   );
 }
+
+export default AddTask;

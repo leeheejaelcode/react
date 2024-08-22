@@ -1,57 +1,58 @@
-/* eslint-disable no-unused-vars */
-import {
+import { useReducer } from 'react';
+import listReducer, {
   addItem,
-  editItem,
-  listReducer,
   deleteItem,
+  editItem,
   filterList,
   resetList,
   INITIAL_LIST,
 } from '@/stores/list';
-import { useReducer } from 'react';
 
-export function ListManager() {
+function ListManager() {
   const [list, dispatch] = useReducer(listReducer, INITIAL_LIST);
 
-  // 추가
   const handleAddItem = () => {
     dispatch(addItem(crypto.randomUUID().split('-').at(0)));
   };
-  // 수정
-  const handleEditItem = (editId) => () => {
+
+  const handleEditItem = (editId) => {
     dispatch(editItem(editId, crypto.randomUUID().split('-').at(0)));
   };
-  // 삭제
-  const handleDeleteItem = (deleteId) => () => {
+
+  const handleDeleteItem = (deleteId) => {
     dispatch(deleteItem(deleteId));
   };
-  // 필터링
-  const handleFilterItems = () =>
+
+  const handleFilterList = () => {
     dispatch(filterList(Math.floor(Math.random() * 10)));
-  // 리셋
-  const handleResetItems = () => dispatch(resetList());
+  };
+
+  const handleResetList = () => {
+    dispatch(resetList());
+  }
+
   return (
     <div>
-      <h2 className="headline2">배열관리자</h2>
+      <h2 className="headline2">리스트 관리자</h2>
+
       <div role="group">
         <button type="button" onClick={handleAddItem}>
           추가
         </button>
-        <button type="button" onClick={handleFilterItems}>
+        <button type="button" onClick={handleFilterList}>
           필터링
         </button>
-        <button type="button" onClick={handleResetItems}>
-          초기화
-        </button>
+        <button type="button" onClick={handleResetList}>리셋</button>
       </div>
+
       <ul>
         {list.map((item, index) => (
           <li key={index}>
-            {item}{' '}
-            <button type="button" onClick={handleEditItem(index)}>
+            {item}
+            <button type="button" onClick={() => handleEditItem(index)}>
               수정
-            </button>{' '}
-            <button type="button" onClick={handleDeleteItem(index)}>
+            </button>
+            <button type="button" onClick={() => handleDeleteItem(index)}>
               삭제
             </button>
           </li>
@@ -60,3 +61,5 @@ export function ListManager() {
     </div>
   );
 }
+
+export default ListManager;

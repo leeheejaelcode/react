@@ -1,7 +1,7 @@
-import { useTask } from './context';
 import { PiPushPinFill, PiPushPinLight } from 'react-icons/pi';
+import { useTask } from './@context';
 
-export function PinnedTaskList() {
+function PinnedTaskList() {
   const {
     pinnedTaskList,
     methods: { togglePin, setTask },
@@ -49,3 +49,5 @@ export function PinnedTaskList() {
     </ul>
   );
 }
+
+export default PinnedTaskList;

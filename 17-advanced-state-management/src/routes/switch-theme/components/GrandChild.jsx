@@ -1,6 +1,6 @@
-import S from './style.module.css';
-import TodoListApp from './TodoListApp';
 import { useTheme } from '@/contexts/theme';
+import TodoListApp from './TodoListApp';
+import S from './style.module.css';
 
 function GrandChild() {
   const { theme } = useTheme();

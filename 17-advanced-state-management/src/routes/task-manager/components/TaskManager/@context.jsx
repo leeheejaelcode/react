@@ -10,8 +10,10 @@ import taskReducer, {
 const taskContext = createContext();
 
 export function TaskProvider(props) {
+  // [상태]
   const [taskList, dispatch] = useReducer(taskReducer, INITIAL_TASKS);
 
+  // [이벤트 핸들러: 메서드]
   const taskMethods = useMemo(() => {
     const handleAddTask = (nextStep) => dispatch(addTask(nextStep));
     const handleDeleteTask = (deleteId) => dispatch(deleteTask(deleteId));
@@ -27,6 +29,7 @@ export function TaskProvider(props) {
     };
   }, []);
 
+  // [파생된 상태]
   const pinnedTaskList = taskList.filter((task) => task.isPin);
   const unpinnedTaskList = taskList.filter((task) => !task.isPin);
 

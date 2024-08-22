@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 
 function useCounter({
   count: initialCount = 0,
@@ -6,17 +6,19 @@ function useCounter({
   min = 0,
   max = 100,
 } = {}) {
-  const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState(initialCount); // Memoized State (Immutable, Snapshot)
 
-  const isMinDisabled = count <= min;
-  const isMaxDisabled = count >= max;
+  const isMinDisabled = count <= min; // Boolean (Immutable)
+  const isMaxDisabled = count >= max; // Boolean (Immutable)
 
-  // useCallback 훅은 오직 함수 값만 기억
+  // Memoized function (Immutable)
+  // useCallback() vs. useMemo()
+
+  // useCallback() 훅 사용할 경우
+  // 오직 함수 값만 기억
   const reset = useCallback(() => setCount(initialCount), [initialCount]);
-  // useMemo 훅은 모든 값을 기억 (함수 포함)
-  const reset2 = useMemo(() => () => setCount(initialCount), [initialCount]);
-  // 함수를 기억하려면 callback 훅을 사용하는게 좋다
 
+  // Memoized function (Immutable)
   const increment = useCallback(
     () =>
       setCount((c) => {
@@ -24,9 +26,10 @@ function useCounter({
         if (nextCount >= max) nextCount = max;
         return nextCount;
       }),
-    [step, max]
+    [max, step]
   );
 
+  // Memoized function (Immutable)
   const decrement = useCallback(
     () =>
       setCount((c) => {
@@ -34,43 +37,18 @@ function useCounter({
         if (nextCount <= min) nextCount = min;
         return nextCount;
       }),
-    [step, min]
+    [min, step]
   );
 
-  const returnValue = useMemo(
-    () => ({
-      count,
-      step,
-      isMinDisabled,
-      isMaxDisabled,
-      increment,
-      decrement,
-      reset,
-      reset2,
-    }),
-    [
-      count,
-      step,
-      isMinDisabled,
-      isMaxDisabled,
-      increment,
-      decrement,
-      reset,
-      reset2,
-    ]
-  );
-
-  return returnValue;
-  // return {
-  //   count,
-  //   step,
-  //   isMinDisabled,
-  //   isMaxDisabled,
-  //   increment,
-  //   decrement,
-  //   reset,
-  //   reset2,
-  // };
+  return {
+    count,
+    step,
+    isMinDisabled,
+    isMaxDisabled,
+    increment,
+    decrement,
+    reset,
+  };
 }
 
 export default useCounter;

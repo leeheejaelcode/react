@@ -30,8 +30,8 @@ export function ThemeProvider(props) {
   return <themeContext.Provider value={themeValue} {...props} />;
 }
 
+/** @type {(selector: (state: any) => state) => state} */
 // eslint-disable-next-line react-refresh/only-export-components
-/**@type {{selector :(state:any)=> state}} */
 export function useTheme(selector = (state) => state) {
   const themeValue = useContext(themeContext);
 

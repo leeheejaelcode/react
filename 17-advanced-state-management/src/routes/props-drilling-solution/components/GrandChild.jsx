@@ -5,6 +5,7 @@ import S from './style.module.css';
 function GrandChild() {
   // 컨텍스트 값 가져오기
   const { message } = usePage();
+
   const { forground, background, accent } = useTheme(({ theme }) => theme);
 
   return (

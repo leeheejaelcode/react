@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import S from './TaskManager.module.css';
-import { TaskProvider } from './TaskManager/context';
-import { UnpinnedTaskList } from './TaskManager/UnpinnedTaskList';
-import { PinnedTaskList } from './TaskManager/PinnedTaskList';
-import { AddTask } from './TaskManager/AddTask';
+import { TaskProvider } from './@context';
+import UnpinnedTaskList from './UnpinnedTaskList';
+import PinnedTaskList from './PinnedTaskList';
+import AddTask from './AddTask';
 
 function TaskManager() {
   return (

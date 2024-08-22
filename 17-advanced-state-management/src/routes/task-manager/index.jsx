@@ -1,25 +1,16 @@
-import guideImage from './assets/task-manager-guide.png';
+import { AppLink } from '@/components';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
-import TaskManager from './components/TaskManager';
+import guideImage from './assets/task-manager-guide.png';
+import TaskManager from './components/TaskManager/TaskManager';
 import S from './style.module.css';
-import { AppDivider, AppLink } from '@/components';
-import AuthStatus from './components/AuthStatus';
-import { ListManager } from './components/ListManager';
-
-// 작업 요청(action) 알림(dispatch)이 오면 리듀서가 일을 합니다.
-// 리듀서가 하는 일은 요청을 수행해 새로운 상태(state)를 반환합니다.
 
 function TaskManagerUsingReducer() {
   useDocumentTitle('태스크 매니저 (리듀서 활용)');
-  // const [authUser, setAuthUser] = useState(null);
 
   return (
     <main id="page" className={S.component}>
       <h1 className="headline">태스크 매니저 (리듀서 활용)</h1>
-      <ListManager />
-      <AppDivider />
-      <AuthStatus />
-      <AppDivider />
+
       <div className="description">
         <figure>
           <figcaption>

@@ -1,8 +1,8 @@
-import { useTask } from './context';
-import { RxCross1 } from 'react-icons/rx';
 import { PiPushPinFill, PiPushPinLight } from 'react-icons/pi';
+import { RxCross1 } from 'react-icons/rx';
+import { useTask } from './@context';
 
-export function UnpinnedTaskList() {
+function UnpinnedTaskList() {
   const {
     unpinnedTaskList,
     methods: { setTask, togglePin, deleteTask },
@@ -52,3 +52,5 @@ export function UnpinnedTaskList() {
     </ul>
   );
 }
+
+export default UnpinnedTaskList;

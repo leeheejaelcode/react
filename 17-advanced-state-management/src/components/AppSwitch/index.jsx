@@ -1,8 +1,7 @@
-import { useRef, useEffect } from 'react';
 import { animate, spring } from 'motion';
+import { useRef, useEffect, memo } from 'react';
 import { bool, func, number } from 'prop-types';
 import S from './style.module.css';
-import { memo } from 'react';
 
 const springAnimation = spring({ stiffness: 500, damping: 40 });
 

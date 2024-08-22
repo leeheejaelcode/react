@@ -1,18 +1,17 @@
-import useDocumentTitle from '@/hooks/useDocumentTitle';
 import S from './style.module.css';
-import { AppSwitch } from '@/components';
-import GrandParent from './components/GrandParent';
-import { useTheme } from '@/contexts/theme';
 import { useCallback } from 'react';
+
+import { AppSwitch } from '@/components';
+import { useTheme } from '@/contexts/theme';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+import GrandParent from './components/GrandParent';
 
 function SwitchTheme() {
   useDocumentTitle('테마 스위치');
 
-  // const { toggleMode } = useTheme();
   const { isDarkMode, toggleMode } = useTheme();
 
-  // 불필요한 리렌더링을 막기위해 callback 사용
-  const handleToggleTheme = useCallback(() => {
+  const handleToggle = useCallback(() => {
     toggleMode();
   }, [toggleMode]);
 
@@ -43,8 +42,8 @@ function SwitchTheme() {
       </div>
 
       <div style={containerStyles}>
-        <AppSwitch value={isDarkMode} onToggle={handleToggleTheme} ratio={3} />
-        {isDarkMode ? '라이트' : '다크'} 테마 전환
+        <AppSwitch value={isDarkMode} onToggle={handleToggle} ratio={2} />
+        {isDarkMode ? '다크' : '라이트'} 테마
       </div>
 
       <div className="divider" />
