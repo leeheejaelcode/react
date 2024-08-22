@@ -1,6 +1,6 @@
+import { memo } from 'react';
 import { func, node } from 'prop-types';
 import S from './style.module.css';
-import { memo } from 'react';
 
 CountButton.propTypes = {
   children: node,

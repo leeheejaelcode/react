@@ -1,19 +1,14 @@
-import { object } from 'prop-types';
-import S from './style.module.css';
 import { usePage } from '../context';
-// 전달 받은 값을 가져오기
-
-GrandChild.propTypes = {
-  data: object,
-};
+import S from './style.module.css';
 
 function GrandChild() {
-  // 전달 받은 값을 가져오기
+  // 컨텍스트 값 가져오기
   const { message, color } = usePage();
+
   return (
-    <div className={S.box}>
+    <div className={S.box} style={{ backgroundColor: color }}>
       <strong className={S.label}>Grand Child</strong>
-      <p style={{ color }}>{message}</p>
+      <p>{message}</p>
     </div>
   );
 }

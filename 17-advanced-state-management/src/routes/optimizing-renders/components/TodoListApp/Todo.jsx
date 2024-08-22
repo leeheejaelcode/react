@@ -1,8 +1,8 @@
 import clsx from 'clsx';
+import { memo } from 'react';
 import { func } from 'prop-types';
 import { TodoType } from './@types';
 import S from './style.module.css';
-import { memo } from 'react';
 
 Todo.propTypes = {
   todo: TodoType.isRequired,

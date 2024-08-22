@@ -1,8 +1,8 @@
+import { memo } from 'react';
 import { func } from 'prop-types';
 import S from './style.module.css';
 import { TodoListType } from './@types';
 import Todo from './Todo';
-import { memo } from 'react';
 
 TodoList.propTypes = {
   list: TodoListType.isRequired,

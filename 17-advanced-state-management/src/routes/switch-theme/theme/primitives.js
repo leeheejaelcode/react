@@ -57,20 +57,16 @@ export default {
       800: '#642d2e',
       900: '#321717',
     },
-    cringuetRose: {
-      50: '#FDEDF4',
-      100: '#FBDBE9',
-      200: '#F6B6D3',
-      300: '#F292BC',
-      400: '#ED6DA6',
-      500: '#E94990',
-      600: '#DA1A70',
-      700: '#A41454',
-      800: '#6D0D38',
-      900: '#37071C',
-      950: '#1B030E',
+    teal: {
+      100: '#cceeda',
+      200: '#99deb5',
+      300: '#66cd91',
+      400: '#33bd6c',
+      500: '#00ac47',
+      600: '#008a39',
+      700: '#00672b',
+      800: '#00451c',
+      900: '#00220e',
     },
   },
 };
-
-// https://marketplace.visualstudio.com/items?itemName=bourhaouta.tailwindshades

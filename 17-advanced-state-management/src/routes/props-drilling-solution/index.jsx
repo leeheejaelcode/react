@@ -1,10 +1,9 @@
+import { useMemo, useState } from 'react';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import GrandParent from './components/GrandParent';
-import S from './style.module.css';
-import { useMemo, useState } from 'react';
-import { throttle } from '@/utils';
 import { AppLink } from '@/components';
-// 컨텍스트 가져오기
+import { throttle } from '@/utils';
+import S from './style.module.css';
 
 // 페이지 컨텍스트 프로바이더 컴포넌트 불러오기
 import { PageProvider } from './context';
@@ -14,13 +13,12 @@ function PropsDrillingSolution() {
 
   const [message, setMessage] = useState('Props Drilling Issue');
 
-  const handleChange = throttle((e) => setMessage(e.target.value));
+  const handleChange = throttle((e) => setMessage(e.target.value), 100);
 
-  const data = useMemo(() => ({ message, color: 'red' }), [message]);
+  const data = useMemo(() => ({ message, color: '#90deff' }), [message]);
 
   return (
-    // 컨텍스트 프로바이더를 통해 값 전달하기
-    // value를 통해 전달
+    // 컨텍스트.프로바이더(공급자)를 통해 값(메모 필요) 전달하기
     <PageProvider value={data}>
       <main id="page" className={S.component}>
         <h1 className="headline">프롭스 드릴링 이슈 해결책</h1>
@@ -36,7 +34,7 @@ function PropsDrillingSolution() {
               href="https://ko.react.dev/learn/passing-data-deeply-with-context"
               isExternal
             >
-              Context API
+              Context <abbr title="Application Programming Interface">API</abbr>
             </AppLink>
             를 사용해 이 문제를 해결해봅니다.
           </p>
@@ -54,7 +52,7 @@ function PropsDrillingSolution() {
           </div>
         </div>
 
-        <GrandParent />
+        <GrandParent data={data} />
       </main>
     </PageProvider>
   );

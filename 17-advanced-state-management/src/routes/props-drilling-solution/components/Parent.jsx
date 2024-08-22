@@ -1,10 +1,5 @@
-import { object } from 'prop-types';
-import S from './style.module.css';
 import Child from './Child';
-
-Parent.propTypes = {
-  data: object,
-};
+import S from './style.module.css';
 
 function Parent() {
   return (

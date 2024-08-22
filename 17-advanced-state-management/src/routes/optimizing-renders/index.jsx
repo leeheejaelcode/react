@@ -1,8 +1,8 @@
+import { AppDivider, AppLink } from '@/components';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import TimeAndCounter from './components/TimeAndCounter';
 import TodoListApp from './components/TodoListApp';
 import S from './style.module.css';
-import { AppLink, AppDivider } from '@/components';
 
 function OptimizingRenders() {
   useDocumentTitle('렌더링(성능) 최적화');
@@ -23,12 +23,14 @@ function OptimizingRenders() {
           >
             useCallback()
           </AppLink>
+          ,
           <AppLink
             href="https://ko.react.dev/reference/react/useMemo"
             isExternal
           >
             useMemo()
           </AppLink>
+          ,
           <AppLink href="https://ko.react.dev/reference/react/memo" isExternal>
             memo()
           </AppLink>
@@ -50,6 +52,7 @@ function OptimizingRenders() {
       <AppDivider />
 
       <h2 className="headline2">Todo List</h2>
+
       <div className="description">
         <p>
           학습한 내용을 토대로 TodoList 앱의 렌더링 문제를 파악한 후
