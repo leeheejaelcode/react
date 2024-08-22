@@ -1,7 +1,6 @@
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import S from './style.module.css';
 import { AppSwitch } from '@/components';
-import useToggle from '@/hooks/useToggle';
 import GrandParent from './components/GrandParent';
 import { useTheme } from '@/contexts/theme';
 import { useCallback } from 'react';
@@ -9,15 +8,13 @@ import { useCallback } from 'react';
 function SwitchTheme() {
   useDocumentTitle('테마 스위치');
 
-  const [isDarkMode, setIsDarkMode] = useToggle(false);
   // const { toggleMode } = useTheme();
-  const { toggleMode } = useTheme(({ toggleMode }) => toggleMode);
+  const { isDarkMode, toggleMode } = useTheme();
 
   // 불필요한 리렌더링을 막기위해 callback 사용
   const handleToggleTheme = useCallback(() => {
-    setIsDarkMode((isDarkMode) => !isDarkMode);
     toggleMode();
-  }, [setIsDarkMode, toggleMode]);
+  }, [toggleMode]);
 
   return (
     <main id="page" className={S.component}>
