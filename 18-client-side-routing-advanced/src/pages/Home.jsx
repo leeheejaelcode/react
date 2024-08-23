@@ -6,7 +6,6 @@ import { useCounter } from '@/stores/counter';
 function HomePage() {
   const count = useCounter((s) => s.count);
 
-  console.log(count);
   return (
     <section id="page">
       <div className="learn">

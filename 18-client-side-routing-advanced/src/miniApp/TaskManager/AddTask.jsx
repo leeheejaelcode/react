@@ -1,13 +1,16 @@
 import { useId } from 'react';
 import { PiPlus } from 'react-icons/pi';
-import { useTask } from './@context';
+// import { useTask } from './@context';
+import { useTask } from '@/stores/task';
 
 function AddTask() {
   const id = useId();
 
-  const {
-    methods: { addTask },
-  } = useTask();
+  // const {
+  //   methods: { addTask },
+  // } = useTask();
+
+  const addTask = useTask((s) => s.addTask);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -6,7 +6,7 @@ import { useCounter } from '@/stores/counter';
 function AppHeader() {
   const counter = useCounter((s) => s);
 
-  const { increment, decrement, reset } = counter;
+  // const { increment, decrement, reset } = counter;
 
   return (
     <header className="flex justify-center py-3 bg-white border-b border-b-indigo-500/10">
@@ -18,7 +18,7 @@ function AppHeader() {
         <span className="text-indigo-800 text-sm select-none">
           클라이언트 사이드 라우팅
         </span>
-        <button
+        {/* <button
           type="button"
           className="euid-button"
           onClick={() => {
@@ -44,7 +44,7 @@ function AppHeader() {
           }}
         >
           초기화
-        </button>
+        </button> */}
       </NavLink>
     </header>
   );
