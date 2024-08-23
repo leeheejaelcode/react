@@ -3,6 +3,8 @@ export const INITIAL_AUTH_INFO = {
   token: null,
 };
 
+export const AUTH_KEY = '@auth';
+
 const ACTION_TYPES = {
   SET: '@auth/set',
   RESET: '@auth/reset',

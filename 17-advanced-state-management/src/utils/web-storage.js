@@ -14,3 +14,8 @@ export function setStorageData(key, value, storageType = 'local') {
   const storage = storageType === 'local' ? localStorage : sessionStorage;
   storage.setItem(key, JSON.stringify(value));
 }
+/**@type {(key: string, storageType: 'local' | 'session') => void} */
+export function removeStorageData(key, storageType = 'local') {
+  const storage = storageType === 'local' ? localStorage : sessionStorage;
+  storage.removeItem(key);
+}

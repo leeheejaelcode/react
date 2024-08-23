@@ -1,20 +1,27 @@
+import {
+  createContext,
+  useMemo,
+  useReducer,
+  useCallback,
+  useContext,
+} from 'react';
 import authReducer, {
   INITIAL_AUTH_INFO,
   resetAuth,
   setAuth,
 } from '@/stores/login';
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useReducer,
-} from 'react';
+import { getStorageData } from '@/utils';
 
+export const AUTH_KEY = '@auth';
+
+// 인증 (Authentication) / 권한 (Authorization)
 const authContext = createContext();
 
 export const AuthProvider = (props) => {
-  const [authState, dispatch] = useReducer(authReducer, INITIAL_AUTH_INFO);
+  // 참고: https://ko.react.dev/reference/react/useReducer#usereducer
+  const [authState, dispatch] = useReducer(authReducer, INITIAL_AUTH_INFO, () =>
+    getStorageData(AUTH_KEY)
+  );
 
   const handleSetAuth = useCallback(
     (authInfo) => dispatch(setAuth(authInfo)),
@@ -22,12 +29,10 @@ export const AuthProvider = (props) => {
   );
   const handleResetAuth = useCallback(() => dispatch(resetAuth()), []);
 
-  const authInfo = useMemo(() => authState, [authState]);
-
   return (
     <authContext.Provider
       value={{
-        authInfo,
+        authInfo: useMemo(() => authState, [authState]),
         setAuth: handleSetAuth,
         resetAuth: handleResetAuth,
       }}
@@ -39,8 +44,8 @@ export const AuthProvider = (props) => {
 export const useAuth = () => {
   const authContextValue = useContext(authContext);
 
-  if (!authContext) {
-    throw new Error('useAuth() 훅은 AuthContext의 내부에서만 사용 가능합니다.');
+  if (!authContextValue) {
+    throw new Error('useAuth() 훅은 Auth Context 내부에서만 사용 가능합니다.');
   }
 
   return authContextValue;

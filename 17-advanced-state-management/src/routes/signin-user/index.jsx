@@ -5,15 +5,18 @@ import { AppButton, AppForm, AppInput } from '@/components';
 import S from './style.module.css';
 import { userSignIn } from '@/api/user';
 import { useImmer } from 'use-immer';
-import { useAuth } from '@/contexts/auth';
+import { AUTH_KEY, useAuth } from '@/contexts/auth';
+import { setStorageData } from '@/utils';
 
 function SignInUser() {
   useDocumentTitle('사용자 로그인');
-  const { setAuth } = useAuth();
+
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+
     try {
       const formData = new FormData(e.currentTarget);
 
@@ -21,10 +24,18 @@ function SignInUser() {
       const password = formData.get('password');
 
       const authData = await userSignIn(email, password);
-      console.log(authData);
 
+      // 요청에 따른 응답 검토
       const { record: user, token } = authData;
-      setAuth({ user, token });
+      const authInfo = { user, token };
+
+      // 인증 컨텍스트에 사용자 정보 저장
+      setAuth(authInfo);
+
+      // 로컬 스토리지에 사용자 정보 저장
+      setStorageData(AUTH_KEY, authInfo);
+
+      // 홈페이지로 이동
       navigate('/');
     } catch (error) {
       console.error(error);
@@ -36,20 +47,21 @@ function SignInUser() {
     password: '',
   });
 
-  const handleEmailInput = (Value) => {
+  const handleEmailInput = (value) => {
     setFormState((draft) => {
-      draft.email = Value;
+      draft.email = value;
     });
   };
 
-  const handlePasswordInput = (Value) => {
+  const handlePasswordInput = (value) => {
     setFormState((draft) => {
-      draft.password = Value;
+      draft.password = value;
     });
   };
 
+  // 파생된 상태 변수
   const { email, password } = formState;
-  const isDisabled = email.trim().length === 0 || password.trim().length === 0;
+  const isDisable = email.trim().length === 0 || password.trim().length === 0;
 
   return (
     <main id="page" className={S.component}>
@@ -84,7 +96,7 @@ function SignInUser() {
           placeholder="영어,숫자 조합 6자리 이상"
           onInput={handlePasswordInput}
         />
-        <AppButton submit disabled={isDisabled} icon={<VscVscodeInsiders />}>
+        <AppButton submit disabled={isDisable} icon={<VscVscodeInsiders />}>
           로그인
         </AppButton>
       </AppForm>
