@@ -9,7 +9,7 @@ import taskReducer, {
 
 const taskContext = createContext();
 
-export function TaskProvider(props) {
+export function TaskProvider(children) {
   // [상태]
   const [taskList, dispatch] = useReducer(taskReducer, INITIAL_TASKS);
 
@@ -36,7 +36,7 @@ export function TaskProvider(props) {
   return (
     <taskContext.Provider
       value={{ pinnedTaskList, unpinnedTaskList, methods: taskMethods }}
-      {...props}
+      {...children}
     />
   );
 }

@@ -4,9 +4,12 @@ import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { AppButton, AppForm, AppInput } from '@/components';
 import S from './style.module.css';
 import { userSignIn } from '@/api/user';
+import { useImmer } from 'use-immer';
+import { useAuth } from '@/contexts/auth';
 
 function SignInUser() {
   useDocumentTitle('사용자 로그인');
+  const { setAuth } = useAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -18,12 +21,34 @@ function SignInUser() {
       const password = formData.get('password');
 
       const authData = await userSignIn(email, password);
-
       console.log(authData);
+
+      const { record: user, token } = authData;
+      setAuth({ user, token });
     } catch (error) {
       console.error(error);
     }
   };
+
+  const [formState, setFormState] = useImmer({
+    email: '',
+    password: '',
+  });
+
+  const handleEmailInput = (Value) => {
+    setFormState((draft) => {
+      draft.email = Value;
+    });
+  };
+
+  const handlePasswordInput = (Value) => {
+    setFormState((draft) => {
+      draft.password = Value;
+    });
+  };
+
+  const { email, password } = formState;
+  const isDisabled = email.trim().length === 0 || password.trim().length === 0;
 
   return (
     <main id="page" className={S.component}>
@@ -49,14 +74,16 @@ function SignInUser() {
           email
           label="이메일"
           placeholder="yamoo9@naver.com"
+          onInput={handleEmailInput}
         />
         <AppInput
           name="password"
           password
           label="패스워드"
           placeholder="영어,숫자 조합 6자리 이상"
+          onInput={handlePasswordInput}
         />
-        <AppButton submit icon={<VscVscodeInsiders />}>
+        <AppButton submit disabled={isDisabled} icon={<VscVscodeInsiders />}>
           로그인
         </AppButton>
       </AppForm>
