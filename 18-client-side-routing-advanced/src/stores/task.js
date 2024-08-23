@@ -18,23 +18,27 @@ const INITIAL_TASKS = [
 // 상태를 생성하는 함수
 const stateCreator = (set) => ({
   tasks: INITIAL_TASKS,
-  // count: INITIAL_VALUE,
+
   addTask: (data) =>
     set(({ tasks }) => {
+      console.log(data);
+      console.log({ tasks });
       const newTask = {
         id: crypto.randomUUID(),
         content: data,
         isCompleted: false,
         isPin: false,
       };
-      const nextState = [newTask, tasks];
-      return { task: nextState };
+
+      // 기존 tasks 배열에 newTask를 추가
+      const nextState = [...tasks, newTask];
+      // 올바르게 tasks로 반환
+      return { tasks: nextState };
     }),
-  // reset: () => set({ count: INITIAL_VALUE }),
 });
 
 // 카운터 상태를 관리하는 훅 함수 이름 작성
-export const useTask = create(stateCreator);
+export const useTasks = create(stateCreator);
 
 export default function reducer(state, action) {
   switch (action.type) {

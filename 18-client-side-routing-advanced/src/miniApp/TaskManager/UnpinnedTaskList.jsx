@@ -1,6 +1,8 @@
 import { PiPushPinFill, PiPushPinLight } from 'react-icons/pi';
 import { RxCross1 } from 'react-icons/rx';
 import { useTask } from './@context';
+import { useTasks } from '@/stores/task';
+
 import clsx from 'clsx';
 
 function UnpinnedTaskList() {
@@ -8,6 +10,7 @@ function UnpinnedTaskList() {
     unpinnedTaskList,
     methods: { setTask, togglePin, deleteTask },
   } = useTask();
+  const tasks = useTasks((s) => s.tasks);
 
   const handleSetTask = (taskId, isCompleted) => {
     setTask(taskId, isCompleted);
@@ -30,7 +33,7 @@ function UnpinnedTaskList() {
         gap: 6,
       }}
     >
-      {unpinnedTaskList.map((task) => (
+      {tasks.map((task) => (
         <li key={task.id} className="flex justify-between gap-1.5">
           <label
             className={clsx('flex gap-1', task.isCompleted && 'line-through')}
