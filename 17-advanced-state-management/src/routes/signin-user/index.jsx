@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { VscVscodeInsiders } from 'react-icons/vsc';
 import useDocumentTitle from '@/hooks/useDocumentTitle';
 import { AppButton, AppForm, AppInput } from '@/components';
@@ -10,10 +10,10 @@ import { useAuth } from '@/contexts/auth';
 function SignInUser() {
   useDocumentTitle('사용자 로그인');
   const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-
     try {
       const formData = new FormData(e.currentTarget);
 
@@ -25,6 +25,7 @@ function SignInUser() {
 
       const { record: user, token } = authData;
       setAuth({ user, token });
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
